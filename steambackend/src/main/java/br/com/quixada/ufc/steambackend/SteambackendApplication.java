@@ -1,13 +1,13 @@
-package br.com.quixada.ufc.SteamBackend;
+package br.com.quixada.ufc.steambackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SteamBackendApplication {
+public class SteambackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SteamBackendApplication.class, args);
+		SpringApplication.run(SteambackendApplication.class, args);
 	}
 
 }
