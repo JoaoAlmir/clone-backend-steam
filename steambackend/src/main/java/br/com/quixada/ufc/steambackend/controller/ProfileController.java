@@ -3,14 +3,17 @@ package br.com.quixada.ufc.steambackend.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
@@ -21,10 +24,11 @@ public class ProfileController {
     Profile profile = new Profile(name, email, nickname, location);
 
     CsvMapper mapper = new CsvMapper();
+		CsvSchema schema = mapper.schemaFor(Profile.class);
+    ObjectWriter writer = mapper.writer(schema);
+    OutputStream outstream = new FileOutputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv", true);
+    writer.writeValue(outstream, profile);
 
-		CsvSchema schema = mapper.schemaFor(Profile.class).withHeader();
-		
-		mapper.writer(schema).writeValueAsString(new File("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv"));
     return true;
   }
   
