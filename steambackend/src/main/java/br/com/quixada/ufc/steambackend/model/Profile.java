@@ -10,6 +10,8 @@ public class Profile {
     // private List<Integer> friends;
     private int level;
 
+    public Profile(){}
+
     public Profile(String name, String email, String nickname, String location){
         this.name = name;
         this.email = email;
