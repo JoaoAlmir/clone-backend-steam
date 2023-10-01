@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import br.com.quixada.ufc.steambackend.controller.ProfileController;
@@ -15,7 +16,7 @@ public class Menu {
   BufferedReader br = new BufferedReader(isr);
   Scanner sc = new Scanner(System.in);
 
-  public void insertProfile() throws IOException{
+  public void insertProfile() throws IOException, NumberFormatException, NoSuchAlgorithmException{
     System.out.println("\n|----------Cadastrar perfil----------|");
     System.out.print("Digite seu nome: ");
     String name = br.readLine();
@@ -25,7 +26,7 @@ public class Menu {
     String nickname = br.readLine();
     System.out.print("Digite seu estado: ");
     String location = br.readLine();
-    System.out.println("|---------------------------------|\n");
+    System.out.println("|------------------------------------|");
     
     Boolean verify = control.insertProfile(name, email, nickname, location);
 
@@ -34,15 +35,13 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
-
   }
 
-  public void sizeData() throws IOException{
+  public void sizeData() throws IOException, NumberFormatException, NoSuchAlgorithmException{
     System.out.println("\nA quantidade de perfis é: " + control.sizeData());
-
   }
 
-  public void convertToJSON() throws NumberFormatException, IOException{
+  public void convertToJSON() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean verify = control.convertToJSON();
 
     if(verify){
@@ -50,10 +49,9 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
-    
   }
 
-  public void convertToXML() throws NumberFormatException, IOException{
+  public void convertToXML() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean verify = control.convertToXML();
 
     if(verify){
@@ -61,10 +59,9 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
-    
   }
 
-  public void compressData() throws NumberFormatException, IOException{
+  public void compressData() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean verify = control.compressData();
 
     if(verify){
@@ -72,15 +69,13 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
-    
   }
 
-  public void showHash() throws NumberFormatException, IOException{
+  public void showHash() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     System.out.println("\nO hash dos dados é: " + control.showHash());
-
   }
 
-  public void start() throws NumberFormatException, IOException{
+  public void start() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean exec = true;
 
     do{
@@ -93,6 +88,7 @@ public class Menu {
       System.out.print("| 6 - Mostrar hash SHA256 dos dados |\n");
       System.out.print("| 7 - Sair                          |\n");
       System.out.print("|-----------------------------------|\n\n");
+      
       System.out.print("Digite a opção desejada: ");
       int option = sc.nextInt();
 
