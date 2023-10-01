@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,6 +82,7 @@ public class ProfileController {
       XmlMapper xmlMapper = new XmlMapper();
       String xml = xmlMapper.writeValueAsString(profiles);
       System.out.println(xml);
+
       return true;
     } catch(Exception e) {
       return false;
@@ -88,7 +91,30 @@ public class ProfileController {
   }
 
   public boolean compressData(){
-    return false;
+    try {
+      FileOutputStream fileOut = new FileOutputStream("data.zip");
+      ZipOutputStream zipOut = new ZipOutputStream(fileOut);
+      
+      File inputFile = new File("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
+      FileInputStream fileIn = new FileInputStream(inputFile);
+      
+      ZipEntry zipIn = new ZipEntry(inputFile.getName());
+      zipOut.putNextEntry(zipIn);
+      
+      byte[] bytes = new byte[1024];
+      int length = fileIn.read(bytes);
+      
+      while(length >= 0) {
+        zipOut.write(bytes, 0, length);
+      }
+
+      fileIn.close();
+      fileOut.close();
+      
+      return true;
+    } catch (IOException e) {
+        return false;
+    }
   }
 
   public String showHash(){

@@ -97,8 +97,9 @@ public class Menu {
       System.out.print("| 6 - Mostrar hash SHA256 dos dados |\n");
       System.out.print("| 7 - Sair                          |\n");
       System.out.print("|-----------------------------------|\n\n");
+      
       System.out.print("Digite a opção desejada: ");
-      Integer option = br.read();
+      Integer option = Integer.parseInt(br.readLine());
 
       switch(option){
         case 1: insertProfile(); break;
