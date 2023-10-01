@@ -35,10 +35,14 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
+
+    start();
   }
 
   public void sizeData() throws IOException, NumberFormatException, NoSuchAlgorithmException{
     System.out.println("\nA quantidade de perfis é: " + control.sizeData());
+
+    start();
   }
 
   public void convertToJSON() throws NumberFormatException, IOException, NoSuchAlgorithmException{
@@ -49,6 +53,8 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
+    
+    start();
   }
 
   public void convertToXML() throws NumberFormatException, IOException, NoSuchAlgorithmException{
@@ -59,6 +65,8 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
+    
+    start();
   }
 
   public void compressData() throws NumberFormatException, IOException, NoSuchAlgorithmException{
@@ -69,10 +77,14 @@ public class Menu {
     }else{
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
+    
+    start();
   }
 
   public void showHash() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     System.out.println("\nO hash dos dados é: " + control.showHash());
+
+    start();
   }
 
   public void start() throws NumberFormatException, IOException, NoSuchAlgorithmException{
