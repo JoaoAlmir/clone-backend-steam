@@ -11,7 +11,6 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -39,6 +38,7 @@ public class ProfileController {
     String s = br.readLine();
     Integer size = 0;
     s = br.readLine();
+
     while (s != null) {
       s = br.readLine();
 
