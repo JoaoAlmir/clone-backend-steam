@@ -15,13 +15,13 @@ public class Menu {
 
   public void insertProfile() throws IOException{
     System.out.println("----------Cadastrar perfil----------");
-    System.out.println("Digite seu nome: ");
+    System.out.print("Digite seu nome: ");
     String name = br.readLine();
-    System.out.println("Digite seu email: ");
+    System.out.print("Digite seu email: ");
     String email = br.readLine();
-    System.out.println("Digite seu nickname: ");
+    System.out.print("Digite seu nickname: ");
     String nickname = br.readLine();
-    System.out.println("Digite seu estado: ");
+    System.out.print("Digite seu estado: ");
     String location = br.readLine();
     System.out.println("---------------------------------");
     
@@ -99,7 +99,7 @@ public class Menu {
     Boolean exec = true;
 
     do{
-      System.out.println("Digite a opção desejada: ");
+      System.out.print("Digite a opção desejada: ");
       Integer option = Integer.parseInt(br.readLine());
 
       switch(option){
