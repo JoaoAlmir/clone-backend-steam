@@ -17,7 +17,7 @@ public class Menu {
   Scanner sc = new Scanner(System.in);
 
   public void insertProfile() throws IOException, NumberFormatException, NoSuchAlgorithmException{
-    System.out.println("\n|----------Cadastrar perfil----------|");
+    System.out.print("\n|----------Cadastrar perfil----------|\n");
     System.out.print("Digite seu nome: ");
     String name = br.readLine();
     System.out.print("Digite seu email: ");
@@ -30,11 +30,8 @@ public class Menu {
     
     Boolean verify = control.insertProfile(name, email, nickname, location);
 
-    if(verify){
-      System.out.println("\nPerfil inserido com sucesso.");
-    }else{
-      System.out.println("\nHouve um erro, realize uma nova tentativa.");
-    }
+    if(verify) System.out.println("\nPerfil inserido com sucesso.");
+    else System.out.println("\nHouve um erro, realize uma nova tentativa.");
   }
 
   public void sizeData() throws IOException, NumberFormatException, NoSuchAlgorithmException{
@@ -44,31 +41,22 @@ public class Menu {
   public void convertToJSON() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean verify = control.convertToJSON();
 
-    if(verify){
-      System.out.println("\nConversão para JSON realizada com sucesso.");
-    }else{
-      System.out.println("\nHouve um erro, realize uma nova tentativa.");
-    }
+    if(verify) System.out.println("\nConversão para JSON realizada com sucesso.");
+    else System.out.println("\nHouve um erro, realize uma nova tentativa.");
   }
 
   public void convertToXML() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean verify = control.convertToXML();
 
-    if(verify){
-      System.out.println("\nConversão para XML realizada com sucesso.");
-    }else{
-      System.out.println("\nHouve um erro, realize uma nova tentativa.");
-    }
+    if(verify) System.out.println("\nConversão para XML realizada com sucesso.");
+    else System.out.println("\nHouve um erro, realize uma nova tentativa.");
   }
 
   public void compressData() throws NumberFormatException, IOException, NoSuchAlgorithmException{
     Boolean verify = control.compressData();
 
-    if(verify){
-      System.out.println("\nDados comprimidos com sucesso.");
-    }else{
-      System.out.println("\nHouve um erro, realize uma nova tentativa.");
-    }
+    if(verify) System.out.println("\nDados comprimidos com sucesso.");
+    else System.out.println("\nHouve um erro, realize uma nova tentativa.");
   }
 
   public void showHash() throws NumberFormatException, IOException, NoSuchAlgorithmException{
@@ -100,7 +88,7 @@ public class Menu {
         case 5: compressData(); break;
         case 6: showHash(); break;
         case 7: exec = false; break;
-        default: System.out.print("Opção inválida.");
+        default: System.out.println("Opção inválida.");
       }
     }while(exec);
   }
