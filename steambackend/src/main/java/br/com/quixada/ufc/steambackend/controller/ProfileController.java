@@ -36,14 +36,14 @@ public class ProfileController {
     CsvMapper mapper = new CsvMapper();
 		CsvSchema schema = mapper.schemaFor(Profile.class);
     ObjectWriter writer = mapper.writer(schema);
-    OutputStream outstream = new FileOutputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv", true);
+    OutputStream outstream = new FileOutputStream("steambackend/output/data.csv", true);
     writer.writeValue(outstream, profile);
 
     return true;
   }
   
   public int sizeData() throws IOException{
-    InputStream is  = new FileInputStream("steambackend/src/main/java/br/com/quixada/ufc/steambackend/output/data.csv");
+    InputStream is  = new FileInputStream("steambackend/output/data.csv");
     InputStreamReader isr = new InputStreamReader(is);
     BufferedReader br = new BufferedReader(isr);
     String s = br.readLine();
@@ -63,11 +63,11 @@ public class ProfileController {
   }
 
   public boolean convertToJSON() throws FileNotFoundException{
-    OutputStream os = new FileOutputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.json");
+    OutputStream os = new FileOutputStream("steambackend/output/data.json");
     OutputStreamWriter osw = new OutputStreamWriter(os);
     BufferedWriter bw = new BufferedWriter(osw);
 
-    File input = new File("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
+    File input = new File("steambackend/output/data.csv");
     try {
       CsvMapper csvMapper = new CsvMapper();
       CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
@@ -86,12 +86,12 @@ public class ProfileController {
   }
 
   public boolean convertToXML() throws FileNotFoundException{
-    OutputStream os = new FileOutputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.xml");
+    OutputStream os = new FileOutputStream("steambackend/output/data.xml");
     OutputStreamWriter osw = new OutputStreamWriter(os);
     BufferedWriter bw = new BufferedWriter(osw);
 
 
-    File input = new File("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
+    File input = new File("steambackend/output/data.csv");
 
     try {
       CsvMapper csvMapper = new CsvMapper();
@@ -115,10 +115,10 @@ public class ProfileController {
 
   public boolean compressData(){
     try {
-      FileOutputStream fileOut = new FileOutputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.zip");
+      FileOutputStream fileOut = new FileOutputStream("steambackend/output/data.zip");
       ZipOutputStream zipOut = new ZipOutputStream(fileOut);
       
-      File inputFile = new File("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
+      File inputFile = new File("steambackend/output/data.csv");
       FileInputStream fileIn = new FileInputStream(inputFile);
       
       ZipEntry zipIn = new ZipEntry(inputFile.getName());
@@ -139,7 +139,7 @@ public class ProfileController {
   }
 
   public String showHash() throws NoSuchAlgorithmException, IOException{
-    byte[] hash = MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Paths.get("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv")));
+    byte[] hash = MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Paths.get("steambackend/output/data.csv")));
     String checksum = new BigInteger(1, hash).toString(16);
 
     return checksum;
