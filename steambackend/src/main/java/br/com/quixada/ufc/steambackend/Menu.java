@@ -14,7 +14,7 @@ public class Menu {
   BufferedReader br = new BufferedReader(isr);
 
   public void insertProfile() throws IOException{
-    System.out.println("----------Cadastrar perfil----------");
+    System.out.println("\n|----------Cadastrar perfil----------|");
     System.out.print("Digite seu nome: ");
     String name = br.readLine();
     System.out.print("Digite seu email: ");
@@ -23,22 +23,21 @@ public class Menu {
     String nickname = br.readLine();
     System.out.print("Digite seu estado: ");
     String location = br.readLine();
-    System.out.println("---------------------------------");
+    System.out.println("|---------------------------------|\n");
     
     Boolean verify = control.insertProfile(name, email, nickname, location);
 
     if(verify){
-      System.out.println("Perfil inserido com sucesso.");
+      System.out.println("\nPerfil inserido com sucesso.");
     }else{
-      System.out.println("Houve um erro, realize uma nova tentativa.");
+      System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
 
     start();
   }
 
   public void sizeData() throws IOException{
-    System.out.println("A quantidade de perfis é: " + 
-    control.sizeData());
+    System.out.println("\nA quantidade de perfis é: " + control.sizeData());
 
     start();
   }
@@ -47,9 +46,9 @@ public class Menu {
     Boolean verify = control.convertToJSON();
 
     if(verify){
-      System.out.println("Conversão para JSON realizada com sucesso.");
+      System.out.println("\nConversão para JSON realizada com sucesso.");
     }else{
-      System.out.println("Houve um erro, realize uma nova tentativa.");
+      System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
     
     start();
@@ -59,9 +58,9 @@ public class Menu {
     Boolean verify = control.convertToXML();
 
     if(verify){
-      System.out.println("Conversão para XML realizada com sucesso.");
+      System.out.println("\nConversão para XML realizada com sucesso.");
     }else{
-      System.out.println("Houve um erro, realize uma nova tentativa.");
+      System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
     
     start();
@@ -71,36 +70,35 @@ public class Menu {
     Boolean verify = control.compressData();
 
     if(verify){
-      System.out.println("Dados comprimidos com sucesso.");
+      System.out.println("\nDados comprimidos com sucesso.");
     }else{
-      System.out.println("Houve um erro, realize uma nova tentativa.");
+      System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
     
     start();
   }
 
   public void showHash() throws NumberFormatException, IOException{
-    System.out.println("O hash dos dados é: " + control.showHash());
+    System.out.println("\nO hash dos dados é: " + control.showHash());
 
     start();
   }
 
   public void start() throws NumberFormatException, IOException{
-    System.out.println("----------Menu Inicial----------");
-    System.out.println("\t1 - Cadastrar perfil");
-    System.out.println("\t2 - Quantidade de perfis");
-    System.out.println("\t3 - Converter os dados em JSON");
-    System.out.println("\t4 - Converter os dados em XML");
-    System.out.println("\t5 - Compactar os dados");
-    System.out.println("\t6 - Mostrar hash SHA256 dos dados");
-    System.out.println("\t7 - Sair");
-    System.out.println("---------------------------------\n");
-
     Boolean exec = true;
 
     do{
+      System.out.print("\n|---------------Menu----------------|\n");
+      System.out.print("| 1 - Cadastrar perfil              |\n");
+      System.out.print("| 2 - Quantidade de perfis          |\n");
+      System.out.print("| 3 - Converter os dados em JSON    |\n");
+      System.out.print("| 4 - Converter os dados em XML     |\n");
+      System.out.print("| 5 - Compactar os dados            |\n");
+      System.out.print("| 6 - Mostrar hash SHA256 dos dados |\n");
+      System.out.print("| 7 - Sair                          |\n");
+      System.out.print("|-----------------------------------|\n\n");
       System.out.print("Digite a opção desejada: ");
-      Integer option = Integer.parseInt(br.readLine());
+      Integer option = br.read();
 
       switch(option){
         case 1: insertProfile(); break;
@@ -110,6 +108,7 @@ public class Menu {
         case 5: compressData(); break;
         case 6: showHash(); break;
         case 7: exec = false; break;
+        default: System.out.print("Opção inválida.");
       }
     }while(exec);
   }

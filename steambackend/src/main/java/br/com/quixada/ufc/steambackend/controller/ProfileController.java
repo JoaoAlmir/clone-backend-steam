@@ -39,6 +39,7 @@ public class ProfileController {
     String s = br.readLine();
     Integer size = 0;
     s = br.readLine();
+
     while (s != null) {
       s = br.readLine();
 
