@@ -35,13 +35,11 @@ public class Menu {
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
 
-    start();
   }
 
   public void sizeData() throws IOException{
     System.out.println("\nA quantidade de perfis é: " + control.sizeData());
 
-    start();
   }
 
   public void convertToJSON() throws NumberFormatException, IOException{
@@ -53,7 +51,6 @@ public class Menu {
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
     
-    start();
   }
 
   public void convertToXML() throws NumberFormatException, IOException{
@@ -65,7 +62,6 @@ public class Menu {
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
     
-    start();
   }
 
   public void compressData() throws NumberFormatException, IOException{
@@ -77,13 +73,11 @@ public class Menu {
       System.out.println("\nHouve um erro, realize uma nova tentativa.");
     }
     
-    start();
   }
 
   public void showHash() throws NumberFormatException, IOException{
     System.out.println("\nO hash dos dados é: " + control.showHash());
 
-    start();
   }
 
   public void start() throws NumberFormatException, IOException{
