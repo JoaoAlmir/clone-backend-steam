@@ -33,12 +33,12 @@ public class ProfileController {
   }
   
   public int sizeData() throws IOException{
-    InputStream is  = new FileInputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
+    InputStream is  = new FileInputStream("steambackend/src/main/java/br/com/quixada/ufc/steambackend/output/data.csv");
     InputStreamReader isr = new InputStreamReader(is);
     BufferedReader br = new BufferedReader(isr);
     String s = br.readLine();
     Integer size = 0;
-    
+    s = br.readLine();
     while (s != null) {
       s = br.readLine();
 
