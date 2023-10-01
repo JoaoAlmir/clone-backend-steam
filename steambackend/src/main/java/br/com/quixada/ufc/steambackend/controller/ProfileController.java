@@ -3,7 +3,6 @@ package br.com.quixada.ufc.steambackend.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,21 +17,19 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import br.com.quixada.ufc.steambackend.model.Profile;
 
 public class ProfileController {
-  InputStream is;
-
-  public ProfileController() throws FileNotFoundException{
-    this.is = new FileInputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
-  }
-
-  public boolean insertProfile(String name, String email, String nickname, String location) throws JsonProcessingException{
+  public boolean insertProfile(String name, String email, String nickname, String location) throws IOException{
     Profile profile = new Profile(name, email, nickname, location);
 
     CsvMapper mapper = new CsvMapper();
-    mapper.writeValueAsString(profile);
+
+		CsvSchema schema = mapper.schemaFor(Profile.class).withHeader();
+		
+		mapper.writer(schema).writeValueAsString(new File("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv"));
     return true;
   }
   
   public int sizeData() throws IOException{
+    InputStream is  = new FileInputStream("steambackend\\src\\main\\java\\br\\com\\quixada\\ufc\\steambackend\\output\\data.csv");
     InputStreamReader isr = new InputStreamReader(is);
     BufferedReader br = new BufferedReader(isr);
     String s = br.readLine();
