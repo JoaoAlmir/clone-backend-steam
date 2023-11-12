@@ -1,0 +1,39 @@
+package br.ufc.quixada.entity;
+
+import lombok.*;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
+@Entity
+@Table(name = "progress")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Progress {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_profile")
+    @NonNull
+    Profile profile_progress;
+
+    @ManyToOne
+    @JoinColumn(name = "id_game")
+    @NonNull
+    Game game_progress;
+
+    @Min(value = 0, message = "O progresso deve ser no mínimo 0")
+    @Max(value = 100, message = "O progresso deve ser no máximo 100")
+    int progress_percent;
+
+    @Min(value = 0, message = "O tempo de jogo deve ser no mínimo 0")
+    int minutes_played;
+
+    @Min(value = 0, message = "A quantidade de troféus deve ser no mínimo 0")
+    int trophy_quantity;
+
+}

@@ -23,6 +23,9 @@ public class MenuPrincipal implements CommandLineRunner {
 	@Autowired
 	private MenuGame menuGames;
 
+	@Autowired
+	private MenuProgress menuProgress;
+
 
  public static void main(String[] args) {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(MenuPrincipal.class);
@@ -34,7 +37,7 @@ public class MenuPrincipal implements CommandLineRunner {
 		StringBuilder menu = new StringBuilder("Menu Principal\n")
 			.append("1 - Profiles\n")
 			.append("2 - Games\n")
-			// .append("3 - GameStore\n")
+			.append("3 - Progresso\n")
 			.append("0 - Sair");
 		char opcao = 'x';
 		do {
@@ -47,9 +50,9 @@ public class MenuPrincipal implements CommandLineRunner {
 					case '2':     // Games
 						menuGames.menu();
 						break;
-					// case '3':     // GameStore
-					// 	menuGameStore.menu();
-					// 	break;
+					case '3':     // GameStore
+						menuProgress.menu();
+						break;
 					case '0':     // Sair
 						break;
 					default:

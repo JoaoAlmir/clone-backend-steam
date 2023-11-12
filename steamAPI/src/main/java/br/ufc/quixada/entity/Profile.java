@@ -3,6 +3,8 @@ package br.ufc.quixada.entity;
 import lombok.*;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+
 import java.util.List;
 
 @NamedQueries({
@@ -30,21 +32,21 @@ public class Profile {
   private String local;
 
   @NonNull
-  @OneToMany(cascade=CascadeType.ALL)
+  @OneToMany(cascade=CascadeType.ALL , fetch = FetchType.EAGER)
   @JoinTable(name="wishlist",joinColumns=@JoinColumn(name="id_profile"), inverseJoinColumns=@JoinColumn(name="id_game"))
   private List<Game> wishlist;
 
   @NonNull
-  @OneToMany(cascade=CascadeType.ALL)
+  @OneToMany(cascade=CascadeType.ALL , fetch = FetchType.EAGER)
   @JoinTable(name="lib", joinColumns=@JoinColumn(name="id_profile"), inverseJoinColumns=@JoinColumn(name="id_game"))
   private List<Game> lib;
 
   
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name="friends", joinColumns=@JoinColumn(name = "id_profile"), inverseJoinColumns=@JoinColumn(name = "id_friend"))
   private List<Profile> friends;
   
-  
+  @Min (value = 0, message = "O nível deve ser no mínimo 0")
   private int level;
 
   public Integer getCountWishList(){
