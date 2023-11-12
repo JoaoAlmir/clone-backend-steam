@@ -6,6 +6,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
+@NamedQueries({
+    @NamedQuery(name = "getCompleteProgress", query = "select p from Progress p where p.progress_percent = 100"),
+    
+})
+
 @Entity
 @Table(name = "progress")
 @NoArgsConstructor
@@ -19,12 +24,12 @@ public class Progress {
     @ManyToOne
     @JoinColumn(name = "id_profile")
     @NonNull
-    Profile profile_progress;
+    Profile profile;
 
     @ManyToOne
     @JoinColumn(name = "id_game")
     @NonNull
-    Game game_progress;
+    Game game;
 
     @Min(value = 0, message = "O progresso deve ser no mínimo 0")
     @Max(value = 100, message = "O progresso deve ser no máximo 100")

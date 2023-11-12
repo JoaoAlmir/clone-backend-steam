@@ -22,33 +22,32 @@ public class MenuProgress {
 	@Autowired
 	private ProgressDAO baseProgress;
 
-    @Autowired
-    private ProfileDAO baseProfile;  
+	@Autowired
+	private ProfileDAO baseProfile;
 
-    @Autowired
-    private GameDAO baseGame;
+	@Autowired
+	private GameDAO baseGame;
 
 	public void obterProgress(Progress pg) {
 
-
-        int id_profile = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do perfil"));
+		int id_profile = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do perfil"));
 		int id_game = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do jogo"));
-        int progress_percent = Integer.parseInt(JOptionPane.showInputDialog("Digite o progresso em porcentagem"));
-        int minutes_played = Integer.parseInt(JOptionPane.showInputDialog("Digite o tempo de jogo"));
-        int trophy_quantity = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de troféus"));
+		int progress_percent = Integer.parseInt(JOptionPane.showInputDialog("Digite o progresso em porcentagem"));
+		int minutes_played = Integer.parseInt(JOptionPane.showInputDialog("Digite os minutos jogados"));
+		int trophy_quantity = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de troféus"));
 
-        Profile pr = baseProfile.findById(id_profile).orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
-        Game gm = baseGame.findById(id_game).orElseThrow(() -> new RuntimeException("Jogo não encontrado"));
+		Profile pr = baseProfile.findById(id_profile).orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+		Game gm = baseGame.findById(id_game).orElseThrow(() -> new RuntimeException("Jogo não encontrado"));
 
-		pg.setProfile_progress(pr);
-        pg.setGame_progress(gm);
-        pg.setProgress_percent(progress_percent);
-        pg.setMinutes_played(minutes_played);
-        pg.setTrophy_quantity(trophy_quantity);
-	
+		pg.setProfile(pr);
+		pg.setGame(gm);
+		pg.setProgress_percent(progress_percent);
+		pg.setMinutes_played(minutes_played);
+		pg.setTrophy_quantity(trophy_quantity);
+
 	}
 
-	public void listaProgresss(List<Progress> progre) {
+	public void listAllProgress(List<Progress> progre) {
 		StringBuilder listagem = new StringBuilder();
 		for (Progress pg : progre) {
 			listagem.append(pg).append("\n");
@@ -56,7 +55,15 @@ public class MenuProgress {
 		JOptionPane.showMessageDialog(null, listagem.length() == 0 ? "Nenhum progress encontrado" : listagem);
 	}
 
-	public void listaProgress(Progress pfl) {
+	public void listAllProgressSimple(List<Progress> progre) {
+		StringBuilder listagem = new StringBuilder();
+		for (Progress pg : progre) {
+			listagem.append(pg.getProfile().getName()).append(" - ").append(pg.getGame().getName()).append(" - ").append(pg.getProgress_percent()).append("% - ").append(pg.getTrophy_quantity()).append(" Troféus").append(" - ").append(pg.getMinutes_played()).append(" minutos jogados").append("\n");
+		}
+		JOptionPane.showMessageDialog(null, listagem.length() == 0 ? "Nenhum progress encontrado" : listagem);
+	}
+
+	public void listProgress(Progress pfl) {
 		JOptionPane.showMessageDialog(null, pfl == null ? "Nenhum progress encontrado" : pfl);
 	}
 
@@ -67,7 +74,10 @@ public class MenuProgress {
 				.append("3 - Remover por id\n")
 				.append("4 - Exibir por id\n")
 				.append("5 - Exibir todos\n")
-                .append("0 - Menu anterior");
+				.append("6 - Exibir todos os perfis com jogos 100% completos\n")
+				.append("7 - Exibir todos sem nenhum trofeu\n")
+				.append("8 - Exibir todos progressos do jogador pelo id\n")
+				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
 			try {
@@ -100,16 +110,26 @@ public class MenuProgress {
 						}
 						break;
 					case "4": // Exibir por id
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do progresso a ser exibido"));
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do progresso"));
 						gm = baseProgress.findById(id).orElse(null);
 						if (gm != null) {
-							listaProgress(gm);
+							listProgress(gm);
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado progresso com o id " + id);
 						}
 						break;
 					case "5": // Exibir todos
-						listaProgresss(baseProgress.findAll());
+						listAllProgress(baseProgress.findAll());
+						break;
+					case "6": // Exibir todos os perfis com jogos 100% completos
+						listAllProgressSimple(baseProgress.getCompleteProgress());
+						break;
+					case "7": //Exibir todos sem nenhum trofeu
+						listAllProgressSimple(baseProgress.getAllEmptyTrophy());
+						break;
+					case "8": //Exibir todos progressos do jogador pelo id
+						// Integer minutes = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						// listAllProgressSimple(baseProgress.getAllProfileProgresses(minutes));
 						break;
 					case "0": // Sair
 						break;
