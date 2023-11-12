@@ -21,11 +21,11 @@ public interface GameDAO extends JpaRepository<Game, Integer> {
   public List<Game> gameByPriceLessThanEqual(Double price);
 
   // NativeQuery
-  @Query(value ="select g from game g where g.publisher = :publisher", nativeQuery = true)
+  @Query(value ="select * from game where publisher = :publisher", nativeQuery = true)
   public List<Game> getAllGamesByPublisher(String publisher);
 
   // Native query
-  @Query(value="select g from game g where g.review >= 7", nativeQuery=true)
+  @Query(value="select * from game where review >= 7", nativeQuery=true)
   public List<Game> getAllGamesByGoodReview();
 
   // JPQL query

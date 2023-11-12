@@ -1,5 +1,4 @@
 package br.ufc.quixada.ui;
-
 import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;

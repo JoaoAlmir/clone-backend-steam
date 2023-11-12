@@ -37,6 +37,4 @@ public class Game {
     private LocalDate release_date;
     @NonNull
     private String gender;
-    @NonNull
-    private String achievments;
 }

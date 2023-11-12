@@ -28,7 +28,6 @@ public class MenuGame {
 		String publisher = JOptionPane.showInputDialog("Publisher", pfl.getPublisher());
 		LocalDate release_date = LocalDate.parse(JOptionPane.showInputDialog("Release Date", pfl.getRelease_date()));
 		String gender = JOptionPane.showInputDialog("Gender", pfl.getGender());
-		String achievments = JOptionPane.showInputDialog("Achievments", pfl.getAchievments());
 
 		pfl.setName(name);
 		pfl.setGender(gender);
@@ -38,7 +37,6 @@ public class MenuGame {
 		pfl.setDeveloper(developer);
 		pfl.setPublisher(publisher);
 		pfl.setRelease_date(release_date);
-		pfl.setAchievments(achievments);
 
 	}
 

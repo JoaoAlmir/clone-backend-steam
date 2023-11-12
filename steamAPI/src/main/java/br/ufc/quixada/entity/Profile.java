@@ -39,15 +39,23 @@ public class Profile {
   @JoinTable(name="lib", joinColumns=@JoinColumn(name="id_profile"), inverseJoinColumns=@JoinColumn(name="id_game"))
   private List<Game> lib;
 
-  @NonNull
+  
   @ManyToMany
   @JoinTable(name="friends", joinColumns=@JoinColumn(name = "id_profile"), inverseJoinColumns=@JoinColumn(name = "id_friend"))
   private List<Profile> friends;
   
-  @NonNull
+  
   private int level;
 
-  // public Integer getCountWishList(){
-  //   return this.wishlist.length();
-  // };
+  public Integer getCountWishList(){
+    return this.wishlist.size();
+  };
+
+  public Integer getCountFriends(){
+    return this.friends.size();
+  };
+
+  public Integer getCountLib(){
+    return this.lib.size();
+  };
 }
