@@ -1,0 +1,8 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "maven.view": "hierarchical",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
+    ]
+}
