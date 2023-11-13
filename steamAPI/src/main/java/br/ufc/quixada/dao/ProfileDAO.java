@@ -23,30 +23,31 @@ public interface ProfileDAO extends JpaRepository<Profile, Integer> {
 	public Profile getProfileByEmail(String email);
 
 	// Native query
-	@Query(value="SELECT * FROM profile" +
-            "where name=:name in " +
-            "(SELECT friends FROM profile where id=:id)", nativeQuery=true)
+	@Query(value="SELECT * FROM profile " +
+						"where name=:name and id in " + 
+						"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery=true)
 	public List<Profile> getAllFriendsByName(int id, String name);
 
 	// Native query
-	@Query(value="SELECT * FROM game" +
-            "where price=:price in " +
-            "(SELECT wishlist FROM profile where id=:id)", nativeQuery=true)
+	@Query(value="SELECT * FROM game " +
+            "where price<=:price and id in " +
+            "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery=true)
 	public List<Game> getAllWishListGamesByPrice(int id, Double price);
 
-	// JPQL query
-	// @Query("SELECT g FROM Game g" +
-    //     "where g.gender=:gender in " +
-    //     "(SELECT p.wishlist FROM Profile p where p.id=:id)")
+	// Native query
+	// @Query(value="SELECT * FROM game " +
+  //           "where gender=:gender and id in " +
+  //           "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery=true)
 	// public List<Game> getAllWishListGamesByGender(int id, String gender);
 
-	// JPQL query
-	// @Query("SELECT p FROM Profile p" +
-    //     "where p.nickname=:nickname in " +
-    //     "(SELECT p.friends FROM Profile p where p.id=:id)")
+	// Native query
+	// @Query(value="SELECT * FROM profile " +
+	// 					"where nick_name=:nickname and id in " +
+	// 					"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery=true)
 	// public List<Profile> getAllFriendsNickName(int id, String nickname);
 
 	// Query by method name
+	// @Query("")
 	// public List<Profile> getAllFriendsByLocal(int id, String local);
 
 	// Query by method name

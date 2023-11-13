@@ -37,9 +37,8 @@ public class MenuGame {
 		pfl.setDeveloper(developer);
 		pfl.setPublisher(publisher);
 		pfl.setRelease_date(release_date);
-
 	}
-
+	
 	public void listaGames(List<Game> games) {
 		StringBuilder listagem = new StringBuilder();
 		for (Game gm : games) {
