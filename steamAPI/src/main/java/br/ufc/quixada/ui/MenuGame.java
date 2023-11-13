@@ -141,7 +141,7 @@ public class MenuGame {
 						listaGames(baseGames.getAllGamesByPriceWithInterval(price1, price2));
 						break;
 					case "13": // Exibir todos os jogos contendo a descricao
-						LocalDate date = LocalDate.parse(JOptionPane.showInputDialog("Digite a data"));
+						LocalDate date = LocalDate.parse(JOptionPane.showInputDialog("Digite a data no padrão AAAA-MM-DD"));
 						listaGames(baseGames.getAllGamesByStartingRealeaseDate(date));
 						break;
 					case "0": // Sair
