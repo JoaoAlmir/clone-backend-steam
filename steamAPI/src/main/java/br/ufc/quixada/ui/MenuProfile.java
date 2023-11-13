@@ -84,6 +84,29 @@ public class MenuProfile {
 
 	}
 
+	public void addFriend(Profile pfl) {
+		try {
+
+			List<Profile> profiles = baseProfiles.findAll();
+			StringBuilder menu = new StringBuilder("Adicionar amigo\n");
+			for (Profile p : profiles) {
+				menu.append(p.getId()).append(" - ").append(p.getName()).append("\n");
+			}
+			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
+			Profile p = baseProfiles.findById(id).orElse(null);
+			if (p != null) {
+				pfl.getFriends().add(p);
+				baseProfiles.save(pfl);
+			} else {
+				JOptionPane.showMessageDialog(null, "Não foi encontrado amigo com o id " + id);
+			}
+		} catch (InvalidDataAccessApiUsageException e) {
+			log.error(e.getMessage(), e);
+			JOptionPane.showMessageDialog(null, "Esse perfil já possui esse amigo");
+		}
+
+	}
+
 	public void removeGame(Profile pfl) {
 		try {
 			List<Game> games = baseGames.findAll();
@@ -130,6 +153,26 @@ public class MenuProfile {
 		}
 	}
 
+	public void removeFriends(Profile pfl) {
+		try {
+			List<Profile> profiles = baseProfiles.findAll();
+			StringBuilder menu = new StringBuilder("Remover amigo\n");
+			for (Profile p : profiles) {
+				
+				if (pfl.getFriends().contains(p)) {
+					menu.append(p.getId()).append(" - ").append(p.getName()).append("\n");
+				}
+			}
+				pfl.getFriends().clear();
+				baseProfiles.save(pfl);
+			
+		} catch (InvalidDataAccessApiUsageException e) {
+			log.error(e.getMessage(), e);
+			JOptionPane.showMessageDialog(null, "Erro na remoção do amigo");
+		}
+
+	}
+
 	public void ProfileLists(List<Profile> profiles) {
 		StringBuilder listagem = new StringBuilder();
 		for (Profile pfl : profiles) {
@@ -168,8 +211,10 @@ public class MenuProfile {
 				.append("14 - Exibir quantidade de jogos na biblioteca\n")
 				.append("15 - Adicionar jogo a biblioteca\n")
 				.append("16 - Adicionar jogo a wishlist\n")
-				.append("17 - Remover jogo da biblioteca\n")
-				.append("18 - Remover jogo da wishlist\n")
+				.append("17 - Adicionar amigo\n")
+				.append("18 - Remover jogo da biblioteca\n")
+				.append("19 - Remover jogo da wishlist\n")
+				.append("20 - Remover todos os amigos pelo id\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
@@ -290,7 +335,16 @@ public class MenuProfile {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
-					case "17": // Remover jogo da biblioteca
+					case "17": // Adicionar amigo
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							addFriend(pfl);
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "18": // Remover jogo da biblioteca
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
@@ -299,11 +353,20 @@ public class MenuProfile {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
-					case "18": // Remover jogo da wishlist
+					case "19": // Remover jogo da wishlist
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							removeWishList(pfl);
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "20":// Remover amigo
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							removeFriends(pfl);
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
