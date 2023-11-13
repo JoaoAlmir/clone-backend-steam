@@ -3,6 +3,7 @@ package br.ufc.quixada.ui;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
 import br.ufc.quixada.dao.GameDAO;
@@ -23,36 +24,42 @@ public class MenuProfile {
 	private GameDAO baseGames;
 
 	public void createProfile(Profile pfl) {
-		// List<Game> games = baseGames.findAll();
 
 		String name = JOptionPane.showInputDialog("Name", pfl.getName());
 		String email = JOptionPane.showInputDialog("Email", pfl.getEmail());
 		String nick_name = JOptionPane.showInputDialog("Nick Name", pfl.getNick_name());
 		String local = JOptionPane.showInputDialog("Local", pfl.getLocal());
-		// List<Game> lib = JOptionPane.showInputDialog("Lib", pfl.getLib());
-		// List<Game> wishlist = JOptionPane.showInputDialog("Wishlist",
-		// pfl.getWishlist());
-		// List<Game> friends = JOptionPane.showInputDialog("Friends",
-		// pfl.getFriends());
 
-		
+
 		int level = Integer.parseInt(JOptionPane.showInputDialog("Level", pfl.getLevel()));
 		pfl.setName(name);
 		pfl.setEmail(email);
 		pfl.setNick_name(nick_name);
 		pfl.setLocal(local);
-		// pfl.setLib(lib);
-		// pfl.setWishlist(wishlist);
-		// pfl.setFriends(friends);
 		pfl.setLevel(level);
 	}
 
 	public void addGame(Profile pfl) {
-		List<Game> games = baseGames.findAll();
-		Integer id = (Integer) JOptionPane.showInputDialog(null, "Selecione o game", "Game", JOptionPane.QUESTION_MESSAGE, null, games.toArray(), games.get(0));
-		if (id != null) {
-			
+		try {
+
+			List<Game> games = baseGames.findAll();
+			StringBuilder menu = new StringBuilder("Adicionar jogo\n");
+			for (Game gm : games) {
+				menu.append(gm.getId()).append(" - ").append(gm.getName()).append("\n");
+			}
+			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
+			Game gm = baseGames.findById(id).orElse(null);
+			if (gm != null) {
+				pfl.getLib().add(gm);
+				baseProfiles.save(pfl);
+			} else {
+				JOptionPane.showMessageDialog(null, "Não foi encontrado jogo com o id " + id);
+			}
+		} catch (InvalidDataAccessApiUsageException e) {
+			log.error(e.getMessage(), e);
+			JOptionPane.showMessageDialog(null, "Esse perfil já possui esse jogo");
 		}
+
 	}
 
 	public void ProfileLists(List<Profile> profiles) {
@@ -170,7 +177,8 @@ public class MenuProfile {
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
-							JOptionPane.showMessageDialog(null, "Quantidade de jogos na lista de favoritos: " + pfl.getCountWishList());
+							JOptionPane.showMessageDialog(null,
+									"Quantidade de jogos na lista de favoritos: " + pfl.getCountWishList());
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
