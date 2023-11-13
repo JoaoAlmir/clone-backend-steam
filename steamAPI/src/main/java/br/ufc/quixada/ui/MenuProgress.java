@@ -58,7 +58,10 @@ public class MenuProgress {
 	public void listAllProgressSimple(List<Progress> progre) {
 		StringBuilder listagem = new StringBuilder();
 		for (Progress pg : progre) {
-			listagem.append(pg.getProfile().getName()).append(" - ").append(pg.getGame().getName()).append(" - ").append(pg.getProgress_percent()).append("% - ").append(pg.getTrophy_quantity()).append(" Troféus").append(" - ").append(pg.getMinutes_played()).append(" minutos jogados").append("\n");
+			listagem.append(pg.getProfile().getName()).append( "("+ pg.getProfile().getId()+")").append(" - ")
+					.append(pg.getGame().getName()).append("("+pg.getGame().getId()+")").append(" - ").append(pg.getProgress_percent()).append("% - ")
+					.append(pg.getTrophy_quantity()).append(" Troféus").append(" - ").append(pg.getMinutes_played())
+					.append(" minutos jogados\n");
 		}
 		JOptionPane.showMessageDialog(null, listagem.length() == 0 ? "Nenhum progress encontrado" : listagem);
 	}
@@ -76,7 +79,9 @@ public class MenuProgress {
 				.append("5 - Exibir todos\n")
 				.append("6 - Exibir todos os perfis com jogos 100% completos\n")
 				.append("7 - Exibir todos sem nenhum trofeu\n")
-				.append("8 - Exibir todos progressos do jogador pelo id\n")
+				.append("8 - Exibir todos progressos pelo id do jogador\n")
+				.append("9 - Exibir todos progressos pelo id do jogo\n")
+				.append("10 - Exibir todos progressos com minutos maiores ou iguais\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
@@ -124,12 +129,22 @@ public class MenuProgress {
 					case "6": // Exibir todos os perfis com jogos 100% completos
 						listAllProgressSimple(baseProgress.getCompleteProgress());
 						break;
-					case "7": //Exibir todos sem nenhum trofeu
+					case "7": // Exibir todos sem nenhum trofeu
 						listAllProgressSimple(baseProgress.getAllEmptyTrophy());
 						break;
-					case "8": //Exibir todos progressos do jogador pelo id
-						// Integer minutes = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						// listAllProgressSimple(baseProgress.getAllProfileProgresses(minutes));
+					case "8": // Exibir todos progressos pelo id do jogador
+						Integer id_pf = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						listAllProgressSimple(baseProgress.getAllProgressByIdProfile(id_pf));
+						break;
+
+					case "9": // Exibir todos progressos pelo id do jogo
+						Integer id_gm = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do game"));
+						listAllProgressSimple(baseProgress.getAllProgressById_Game(id_gm));
+						break;
+
+					case "10":
+						Integer minutes = Integer.parseInt(JOptionPane.showInputDialog("Digite o tempo de jogo"));
+						listAllProgressSimple(baseProgress.getAllProgressByTime(minutes));
 						break;
 					case "0": // Sair
 						break;

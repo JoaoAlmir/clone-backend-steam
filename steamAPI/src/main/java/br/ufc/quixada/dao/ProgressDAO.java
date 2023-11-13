@@ -18,10 +18,19 @@ public interface ProgressDAO extends JpaRepository<Progress, Integer> {
   @Query(value ="select * from progress where trophy_quantity = 0", nativeQuery = true)
   public List<Progress> getAllEmptyTrophy();
 
-  //JPQL Query
-  // @Query(value ="select * from progress where profile.id = :id")
-  // public List<Progress> getAllProfileProgresses(Integer id);
+  // NativeQuery
+  @Query(value = "select * from progress where id_profile = :id", nativeQuery = true)
+  public List<Progress> getAllProgressByIdProfile(Integer id);
+  
+  // NativeQuery
+  @Query(value = "select * from progress where id_game = :id", nativeQuery = true)
+  public List<Progress> getAllProgressById_Game(Integer id);
 
+  // NativeQuery
+  @Query(value = "select * from progress where minutes_played >= :minutes", nativeQuery = true)
+  public List<Progress> getAllProgressByTime(Integer minutes);
+
+ 
 
 
 
