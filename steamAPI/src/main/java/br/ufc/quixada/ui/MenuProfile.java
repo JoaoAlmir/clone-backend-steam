@@ -90,7 +90,7 @@ public class MenuProfile {
 				.append("4 - Exibir por id\n")
 				.append("5 - Exibir todos\n")
 				.append("6 - Exibir os amigos pelo nome\n")
-				.append("7 - Exibir games da biblioteca pelo preço\n")
+				// .append("7 - Exibir games da biblioteca pelo preço\n")
 				// .append("8 - Exibir games da biblioteca pelo gênero\n")
 				// .append("9 - Exibir amigos pelo nickname\n")
 				// .append("10 - Exibir amigos pelo local\n")
@@ -155,12 +155,12 @@ public class MenuProfile {
 						break;
 					case "8": // Exibir games da biblioteca pelo gênero
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						// String gender = JOptionPane.showInputDialog("Digite o genero");
+						String gender = JOptionPane.showInputDialog("Digite o genero");
 						// GameList(baseProfiles.getAllWishListGamesByGender(id, gender));
 						break;
 					case "9": // Exibir amigos pelo nickname
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						// String nick_name = JOptionPane.showInputDialog("Digite o nickname");
+						String nick_name = JOptionPane.showInputDialog("Digite o nickname");
 						// ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
 						break;
 					case "10": // Exibir amigos pelo local
