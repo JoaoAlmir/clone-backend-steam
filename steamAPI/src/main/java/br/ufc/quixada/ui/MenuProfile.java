@@ -201,11 +201,11 @@ public class MenuProfile {
 				.append("4 - Exibir por id\n")
 				.append("5 - Exibir todos\n")
 				.append("6 - Exibir os amigos pelo nome\n")
-				// .append("7 - Exibir games da biblioteca pelo preço\n")
+				.append("7 - Exibir games da biblioteca pelo preço menor ou igual\n")
 				.append("8 - Exibir games da wishlist do profile pelo gênero\n")
-				// .append("9 - Exibir amigos pelo nickname\n")
-				// .append("10 - Exibir amigos pelo local\n")
-				// .append("11 - Exibir amigos pelo level\n")
+				.append("9 - Exibir amigos pelo nickname\n")
+				.append("10 - Exibir amigos pelo local\n")
+				.append("11 - Exibir amigos pelo level\n")
 				.append("12 - Exibir quantidade de jogos na lista de favoritos\n")
 				.append("13 - Exibir quantidade de amigos\n")
 				.append("14 - Exibir quantidade de jogos na biblioteca\n")
@@ -259,21 +259,21 @@ public class MenuProfile {
 					case "5": // Exibir todos
 						ProfileLists(baseProfiles.findAll());
 						break;
-					case "6": // Exibir todos os amigos que contém determinado nome
+					case "6": // Exibir todos os amigos que contém nome
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String name_friend = JOptionPane.showInputDialog("Digite o nome do amigo");
-
+						name_friend = "%"+name_friend+"%";
 						ProfileLists(baseProfiles.getAllFriendsByName(id, name_friend));
 						break;
-					case "7": // Exibir games da biblioteca pelo preço
+					case "7": // Exibir games da biblioteca pelo preço menor ou igual
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
-						GameList(baseProfiles.getAllWishListGamesByPrice(id, price));
+						GameList(baseGames.getAllWishListGamesByPriceLess(id, price));
 						break;
 					case "8": // Exibir games da wishlist do profile pelo gênero
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String gender = JOptionPane.showInputDialog("Digite o genero");
-						GameList(baseProfiles.getAllWishListGamesByGender(id, gender));
+						GameList(baseGames.getAllWishListGamesByGender(id, gender));
 						break;
 					case "9": // Exibir amigos pelo nickname
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));

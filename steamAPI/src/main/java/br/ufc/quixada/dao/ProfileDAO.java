@@ -25,21 +25,9 @@ public interface ProfileDAO extends JpaRepository<Profile, Integer> {
 
 	// Native query
 	@Query(value = "SELECT * FROM profile " +
-			"where upper(name) = upper(:name) and id in " +
+			"where upper(name) like upper(:name) and id in " +
 			"(SELECT id_friend FROM friends where id_profile = :id)", nativeQuery = true)
 	public List<Profile> getAllFriendsByName(int id, String name);
-
-	// Native query
-	@Query(value = "SELECT * FROM game " +
-			"where price<=:price and id in " +
-			"(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
-	public List<Game> getAllWishListGamesByPrice(int id, Double price);
-
-	// Native query
-	@Query(value = "SELECT * FROM game " +
-			"where gender=:gender and id in " +
-			"(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
-	public List<Game> getAllWishListGamesByGender(int id, String gender);
 
 	// Native query
 	@Query(value = "SELECT * FROM profile " +

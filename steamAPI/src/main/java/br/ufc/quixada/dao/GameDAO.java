@@ -13,20 +13,32 @@ import br.ufc.quixada.entity.Game;
 public interface GameDAO extends JpaRepository<Game, Integer> {
 
   // NamedQuery
-  @Query(name="gameByName")
+  @Query(name = "gameByName")
   public List<Game> getGameByName(String name);
 
   // NamedQuery
-  @Query(name="gameByPriceLessThanEqual")
+  @Query(name = "gameByPriceLessThanEqual")
   public List<Game> gameByPriceLessThanEqual(Double price);
 
   // NativeQuery
-  @Query(value ="select * from game where publisher = :publisher", nativeQuery = true)
+  @Query(value = "select * from game where publisher = :publisher", nativeQuery = true)
   public List<Game> getAllGamesByPublisher(String publisher);
 
   // Native query
-  @Query(value="select * from game where review >= 7", nativeQuery=true)
+  @Query(value = "select * from game where review >= 7", nativeQuery = true)
   public List<Game> getAllGamesByGoodReview();
+
+  // Native query
+  @Query(value = "SELECT * FROM game " +
+      "where price<=:price and id in " +
+      "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
+  public List<Game> getAllWishListGamesByPriceLess(int id, Double price);
+
+  // Native query
+  @Query(value = "SELECT * FROM game " +
+      "where upper(gender)=upper(:gender) and id in " +
+      "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
+  public List<Game> getAllWishListGamesByGender(int id, String gender);
 
   // JPQL query
   @Query("select g from Game g where g.price >= :start and g.price <= :end")
