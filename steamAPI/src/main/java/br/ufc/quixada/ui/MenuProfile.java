@@ -10,6 +10,7 @@ import br.ufc.quixada.dao.GameDAO;
 import br.ufc.quixada.dao.ProfileDAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
+import jakarta.transaction.Transactional;
 
 import javax.swing.*;
 import java.util.List;
@@ -90,13 +91,18 @@ public class MenuProfile {
 			List<Profile> profiles = baseProfiles.findAll();
 			StringBuilder menu = new StringBuilder("Adicionar amigo\n");
 			for (Profile p : profiles) {
-				menu.append(p.getId()).append(" - ").append(p.getName()).append("\n");
+				if (p.getId() != pfl.getId())
+					menu.append(p.getId()).append(" - ").append(p.getName()).append("\n");
 			}
 			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
 			Profile p = baseProfiles.findById(id).orElse(null);
 			if (p != null) {
-				pfl.getFriends().add(p);
-				baseProfiles.save(pfl);
+				if (p.getId() == pfl.getId()) {
+					JOptionPane.showMessageDialog(null, "Não é possível adicionar o próprio perfil");
+				} else {
+					pfl.getFriends().add(p);
+					baseProfiles.save(pfl);
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Não foi encontrado amigo com o id " + id);
 			}
@@ -242,7 +248,7 @@ public class MenuProfile {
 						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do profile a ser removido"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
-							baseProfiles.deleteById(pfl.getId());
+							baseProfiles.removeProfileComplete(id);
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
@@ -262,7 +268,7 @@ public class MenuProfile {
 					case "6": // Exibir todos os amigos que contém nome
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String name_friend = JOptionPane.showInputDialog("Digite o nome do amigo");
-						name_friend = "%"+name_friend+"%";
+						name_friend = "%" + name_friend + "%";
 						ProfileLists(baseProfiles.getAllFriendsByName(id, name_friend));
 						break;
 					case "7": // Exibir games da biblioteca pelo preço menor ou igual
@@ -278,7 +284,7 @@ public class MenuProfile {
 					case "9": // Exibir amigos pelo nickname
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String nick_name = JOptionPane.showInputDialog("Digite o nickname");
-						nick_name = "%"+nick_name+"%";
+						nick_name = "%" + nick_name + "%";
 						ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
 						break;
 					case "10": // Exibir amigos pelo local
