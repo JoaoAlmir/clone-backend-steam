@@ -31,14 +31,19 @@ public interface ProfileDAO extends JpaRepository<Profile, Integer> {
 
 	// Native query
 	@Query(value = "SELECT * FROM profile " +
-			"where nick_name=:nickname and id in " +
+			"where nick_name like :nickname and id in " +
 			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
 	public List<Profile> getAllFriendsNickName(int id, String nickname);
 
-	// Query by method name
-	// @Query("")
-	// public List<Profile> getAllFriendsByLocal(int id, String local);
+	//Native query
+	@Query(value = "SELECT * FROM profile "+
+			"where upper(local) like upper(:local) and id in " +
+			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
+	public List<Profile> getAllFriendsByLocal(int id, String local);
 
 	// Query by method name
-	// public List<Profile> getAllFriendsByLevel(int id, int level);
+	@Query(value = "SELECT * FROM profile "+
+			"where level >= :level and id in " +
+			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
+	public List<Profile> getAllFriendsByLevelMore(int id, int level);
 }

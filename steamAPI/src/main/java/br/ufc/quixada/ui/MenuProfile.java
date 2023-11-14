@@ -205,7 +205,7 @@ public class MenuProfile {
 				.append("8 - Exibir games da wishlist do profile pelo gênero\n")
 				.append("9 - Exibir amigos pelo nickname\n")
 				.append("10 - Exibir amigos pelo local\n")
-				.append("11 - Exibir amigos pelo level\n")
+				.append("11 - Exibir amigos pelo level maior ou igual\n")
 				.append("12 - Exibir quantidade de jogos na lista de favoritos\n")
 				.append("13 - Exibir quantidade de amigos\n")
 				.append("14 - Exibir quantidade de jogos na biblioteca\n")
@@ -278,17 +278,18 @@ public class MenuProfile {
 					case "9": // Exibir amigos pelo nickname
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String nick_name = JOptionPane.showInputDialog("Digite o nickname");
-						// ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
+						nick_name = "%"+nick_name+"%";
+						ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
 						break;
 					case "10": // Exibir amigos pelo local
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						// String local = JOptionPane.showInputDialog("Digite o local");
-						// ProfileLists(baseProfiles.getAllFriendsByLocal(id, local));
+						String local = JOptionPane.showInputDialog("Digite o local");
+						ProfileLists(baseProfiles.getAllFriendsByLocal(id, local));
 						break;
-					case "11": // Exibir amigos pelo level
+					case "11": // Exibir amigos pelo level maior ou igual
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						// int level = Integer.parseInt(JOptionPane.showInputDialog("Digite o level"));
-						// ProfileLists(baseProfiles.getAllFriendsByLevel(id, level));
+						int level = Integer.parseInt(JOptionPane.showInputDialog("Digite o level"));
+						ProfileLists(baseProfiles.getAllFriendsByLevelMore(id, level));
 						break;
 					case "12": // Exibir quantidade de jogos na lista de favoritos
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
