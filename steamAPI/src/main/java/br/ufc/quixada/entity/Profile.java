@@ -32,32 +32,31 @@ public class Profile {
   private String local;
 
   @NonNull
-  @OneToMany(cascade=CascadeType.ALL , fetch = FetchType.EAGER)
-  @JoinTable(name="wishlist",joinColumns=@JoinColumn(name="id_profile"), inverseJoinColumns=@JoinColumn(name="id_game"))
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(name = "wishlist", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
   private List<Game> wishlist;
 
   @NonNull
-  @OneToMany(cascade=CascadeType.ALL , fetch = FetchType.EAGER)
-  @JoinTable(name="lib", joinColumns=@JoinColumn(name="id_profile"), inverseJoinColumns=@JoinColumn(name="id_game"))
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
   private List<Game> lib;
 
-  
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name="friends", joinColumns=@JoinColumn(name = "id_profile"), inverseJoinColumns=@JoinColumn(name = "id_friend"))
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+  @JoinTable(name = "friends", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_friend"))
   private List<Profile> friends;
-  
-  @Min (value = 0, message = "O nível deve ser no mínimo 0")
+
+  @Min(value = 0, message = "O nível deve ser no mínimo 0")
   private int level;
 
-  public Integer getCountWishList(){
+  public Integer getCountWishList() {
     return this.wishlist.size();
   };
 
-  public Integer getCountFriends(){
+  public Integer getCountFriends() {
     return this.friends.size();
   };
 
-  public Integer getCountLib(){
+  public Integer getCountLib() {
     return this.lib.size();
   };
 }

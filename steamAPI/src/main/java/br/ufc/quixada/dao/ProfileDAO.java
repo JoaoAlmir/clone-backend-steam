@@ -10,41 +10,42 @@ import br.ufc.quixada.entity.Profile;
 
 @Repository
 public interface ProfileDAO extends JpaRepository<Profile, Integer> {
+
 	// NamedQuery
-	@Query(name="profileById")
+	@Query(name = "profileById")
 	public Profile getProfileById(int id);
 
 	// Named query
-	@Query(name="profileByName")
+	@Query(name = "profileByName")
 	public Profile getProfileByName(String name);
 
 	// Named query
-	@Query(name="profileByEmail")
+	@Query(name = "profileByEmail")
 	public Profile getProfileByEmail(String email);
 
 	// Native query
-	@Query(value="SELECT * FROM profile " +
-						"where name=:name and id in " + 
-						"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery=true)
+	@Query(value = "SELECT * FROM profile " +
+			"where upper(name) = upper(:name) and id in " +
+			"(SELECT id_friend FROM friends where id_profile = :id)", nativeQuery = true)
 	public List<Profile> getAllFriendsByName(int id, String name);
 
 	// Native query
-	@Query(value="SELECT * FROM game " +
-            "where price<=:price and id in " +
-            "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery=true)
+	@Query(value = "SELECT * FROM game " +
+			"where price<=:price and id in " +
+			"(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
 	public List<Game> getAllWishListGamesByPrice(int id, Double price);
 
 	// Native query
-	// @Query(value="SELECT * FROM game " +
-  //           "where gender=:gender and id in " +
-  //           "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery=true)
-	// public List<Game> getAllWishListGamesByGender(int id, String gender);
+	@Query(value = "SELECT * FROM game " +
+			"where gender=:gender and id in " +
+			"(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
+	public List<Game> getAllWishListGamesByGender(int id, String gender);
 
 	// Native query
-	// @Query(value="SELECT * FROM profile " +
-	// 					"where nick_name=:nickname and id in " +
-	// 					"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery=true)
-	// public List<Profile> getAllFriendsNickName(int id, String nickname);
+	@Query(value = "SELECT * FROM profile " +
+			"where nick_name=:nickname and id in " +
+			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
+	public List<Profile> getAllFriendsNickName(int id, String nickname);
 
 	// Query by method name
 	// @Query("")
