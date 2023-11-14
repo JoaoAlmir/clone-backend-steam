@@ -158,14 +158,14 @@ public class MenuProfile {
 			List<Profile> profiles = baseProfiles.findAll();
 			StringBuilder menu = new StringBuilder("Remover amigo\n");
 			for (Profile p : profiles) {
-				
+
 				if (pfl.getFriends().contains(p)) {
 					menu.append(p.getId()).append(" - ").append(p.getName()).append("\n");
 				}
 			}
-				pfl.getFriends().clear();
-				baseProfiles.save(pfl);
-			
+			pfl.getFriends().clear();
+			baseProfiles.save(pfl);
+
 		} catch (InvalidDataAccessApiUsageException e) {
 			log.error(e.getMessage(), e);
 			JOptionPane.showMessageDialog(null, "Erro na remoção do amigo");
@@ -202,7 +202,7 @@ public class MenuProfile {
 				.append("5 - Exibir todos\n")
 				.append("6 - Exibir os amigos pelo nome\n")
 				// .append("7 - Exibir games da biblioteca pelo preço\n")
-				// .append("8 - Exibir games da biblioteca pelo gênero\n")
+				.append("8 - Exibir games da wishlist do profile pelo gênero\n")
 				// .append("9 - Exibir amigos pelo nickname\n")
 				// .append("10 - Exibir amigos pelo local\n")
 				// .append("11 - Exibir amigos pelo level\n")
@@ -259,20 +259,21 @@ public class MenuProfile {
 					case "5": // Exibir todos
 						ProfileLists(baseProfiles.findAll());
 						break;
-					case "6": // Exibir todos que contém determinado nome
+					case "6": // Exibir todos os amigos que contém determinado nome
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String name_friend = JOptionPane.showInputDialog("Digite o nome do amigo");
+
 						ProfileLists(baseProfiles.getAllFriendsByName(id, name_friend));
 						break;
-					case "7": // Exibir games da biblioteca pelo nome
+					case "7": // Exibir games da biblioteca pelo preço
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
 						GameList(baseProfiles.getAllWishListGamesByPrice(id, price));
 						break;
-					case "8": // Exibir games da biblioteca pelo gênero
+					case "8": // Exibir games da wishlist do profile pelo gênero
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						String gender = JOptionPane.showInputDialog("Digite o genero");
-						// GameList(baseProfiles.getAllWishListGamesByGender(id, gender));
+						GameList(baseProfiles.getAllWishListGamesByGender(id, gender));
 						break;
 					case "9": // Exibir amigos pelo nickname
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
