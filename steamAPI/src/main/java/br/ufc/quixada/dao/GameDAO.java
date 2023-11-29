@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.ufc.quixada.entity.Game;
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface GameDAO extends JpaRepository<Game, Integer> {
@@ -39,6 +41,13 @@ public interface GameDAO extends JpaRepository<Game, Integer> {
       "where upper(gender)=upper(:gender) and id in " +
       "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
   public List<Game> getAllWishListGamesByGender(int id, String gender);
+
+  // Native query
+	@Modifying
+	@Transactional
+	@Query(value =  "DELETE FROM progress WHERE id_game = :id_game"+
+			" ;DELETE FROM game WHERE id = :id_game", nativeQuery = true)
+	public void removeGameComplete(int id_game);
 
   // JPQL query
   @Query("select g from Game g where g.price >= :start and g.price <= :end")

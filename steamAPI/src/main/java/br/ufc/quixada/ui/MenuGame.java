@@ -93,7 +93,7 @@ public class MenuGame {
 						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do game a ser removido"));
 						gm = baseGames.findById(id).orElse(null);
 						if (gm != null) {
-							baseGames.deleteById(gm.getId());
+							baseGames.removeGameComplete(id);
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado game com o id " + id);
 						}
