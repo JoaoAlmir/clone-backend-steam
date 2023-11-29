@@ -206,21 +206,21 @@ public class MenuProfile {
 				.append("3 - Remover por id\n")
 				.append("4 - Exibir por id\n")
 				.append("5 - Exibir todos\n")
-				.append("6 - Exibir os amigos pelo nome\n")
-				.append("7 - Exibir games da biblioteca pelo preço menor ou igual\n")
-				.append("8 - Exibir games da wishlist do profile pelo gênero\n")
-				.append("9 - Exibir amigos pelo nickname\n")
-				.append("10 - Exibir amigos pelo local\n")
-				.append("11 - Exibir amigos pelo level maior ou igual\n")
-				.append("12 - Exibir quantidade de jogos na lista de favoritos\n")
-				.append("13 - Exibir quantidade de amigos\n")
-				.append("14 - Exibir quantidade de jogos na biblioteca\n")
-				.append("15 - Adicionar jogo a biblioteca\n")
-				.append("16 - Adicionar jogo a wishlist\n")
-				.append("17 - Adicionar amigo\n")
-				.append("18 - Remover jogo da biblioteca\n")
-				.append("19 - Remover jogo da wishlist\n")
-				.append("20 - Remover todos os amigos pelo id\n")
+				.append("6 - Adicionar amigo\n")
+				.append("7 - Remover amigos do id\n")
+				.append("8 - Exibir quantidade de amigos\n")
+				.append("9 - Exibir os amigos do id que contem nome\n")
+				.append("10 - Exibir amigos pelo nick\n")
+				.append("11 - Exibir amigos pelo local\n")
+				.append("12 - Exibir amigos pelo level maior ou igual\n")
+				.append("13 - Adicionar jogo a biblioteca\n")
+				.append("14 - Remover jogo da biblioteca\n")
+				.append("15 - Exibir quantidade de jogos na biblioteca\n")
+				.append("16 - Exibir games da biblioteca pelo preço menor ou igual\n")
+				.append("17 - Adicionar jogo a wishlist\n")
+				.append("18 - Remover jogo da wishlist\n")
+				.append("19 - Exibir games da wishlist do profile pelo gênero\n")
+				.append("20 - Exibir quantidade de jogos na wishlist\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
@@ -265,85 +265,7 @@ public class MenuProfile {
 					case "5": // Exibir todos
 						ProfileLists(baseProfiles.findAll());
 						break;
-					case "6": // Exibir todos os amigos que contém nome
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String name_friend = JOptionPane.showInputDialog("Digite o nome do amigo");
-						name_friend = "%" + name_friend + "%";
-						ProfileLists(baseProfiles.getAllFriendsByName(id, name_friend));
-						break;
-					case "7": // Exibir games da biblioteca pelo preço menor ou igual
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
-						GameList(baseGames.getAllWishListGamesByPriceLess(id, price));
-						break;
-					case "8": // Exibir games da wishlist do profile pelo gênero
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String gender = JOptionPane.showInputDialog("Digite o genero");
-						GameList(baseGames.getAllWishListGamesByGender(id, gender));
-						break;
-					case "9": // Exibir amigos pelo nickname
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String nick_name = JOptionPane.showInputDialog("Digite o nickname");
-						nick_name = "%" + nick_name + "%";
-						ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
-						break;
-					case "10": // Exibir amigos pelo local
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String local = JOptionPane.showInputDialog("Digite o local");
-						ProfileLists(baseProfiles.getAllFriendsByLocal(id, local));
-						break;
-					case "11": // Exibir amigos pelo level maior ou igual
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						int level = Integer.parseInt(JOptionPane.showInputDialog("Digite o level"));
-						ProfileLists(baseProfiles.getAllFriendsByLevelMore(id, level));
-						break;
-					case "12": // Exibir quantidade de jogos na lista de favoritos
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							JOptionPane.showMessageDialog(null,
-									"Quantidade de jogos na lista de favoritos: " + pfl.getCountWishList());
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "13": // Exibir quantidade de amigos
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							JOptionPane.showMessageDialog(null, "Quantidade de amigos: " + pfl.getCountFriends());
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "14": // Exibir quantidade de jogos na biblioteca
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							JOptionPane.showMessageDialog(null, "Quantidade de jogos: " + pfl.getCountLib());
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "15": // Adicionar jogo a biblioteca
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							addGame(pfl);
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "16": // Adicionar jogo a wishlist
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							addWishList(pfl);
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "17": // Adicionar amigo
+					case "6": // Adicionar amigo
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
@@ -352,7 +274,56 @@ public class MenuProfile {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
-					case "18": // Remover jogo da biblioteca
+					case "7":// Remover amigo
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							removeFriends(pfl);
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "8": // Exibir quantidade de amigos
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							JOptionPane.showMessageDialog(null, "Quantidade de amigos: " + pfl.getCountFriends());
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "9": // Exibir todos os amigos que contém nome
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						String name_friend = JOptionPane.showInputDialog("Digite o nome do amigo");
+						name_friend = "%" + name_friend + "%";
+						ProfileLists(baseProfiles.getAllFriendsByName(id, name_friend));
+						break;
+					case "10": // Exibir amigos pelo nickname
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						String nick_name = JOptionPane.showInputDialog("Digite o nickname");
+						nick_name = "%" + nick_name + "%";
+						ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
+						break;
+					case "11": // Exibir amigos pelo local
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						String local = JOptionPane.showInputDialog("Digite o local");
+						ProfileLists(baseProfiles.getAllFriendsByLocal(id, local));
+						break;
+					case "12": // Exibir amigos pelo level maior ou igual
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						int level = Integer.parseInt(JOptionPane.showInputDialog("Digite o level"));
+						ProfileLists(baseProfiles.getAllFriendsByLevelMore(id, level));
+						break;
+					case "13": // Adicionar jogo a biblioteca
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							addGame(pfl);
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "14": // Remover jogo da biblioteca
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
@@ -361,7 +332,30 @@ public class MenuProfile {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
-					case "19": // Remover jogo da wishlist
+					case "15": // Exibir quantidade de jogos na biblioteca
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							JOptionPane.showMessageDialog(null, "Quantidade de jogos: " + pfl.getCountLib());
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "16": // Exibir games da biblioteca pelo preço menor ou igual
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
+						GameList(baseGames.getAllWishListGamesByPriceLess(id, price));
+						break;
+					case "17": // Adicionar jogo a wishlist
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						pfl = baseProfiles.findById(id).orElse(null);
+						if (pfl != null) {
+							addWishList(pfl);
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
+						}
+						break;
+					case "18": // Remover jogo da wishlist
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
@@ -370,11 +364,17 @@ public class MenuProfile {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
-					case "20":// Remover amigo
+					case "19": // Exibir games da wishlist do profile pelo gênero
+						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						String gender = JOptionPane.showInputDialog("Digite o genero");
+						GameList(baseGames.getAllWishListGamesByGender(id, gender));
+						break;
+					case "20": // Exibir quantidade de jogos na lista de favoritos
 						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
-							removeFriends(pfl);
+							JOptionPane.showMessageDialog(null,
+									"Quantidade de jogos na lista de favoritos: " + pfl.getCountWishList());
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
