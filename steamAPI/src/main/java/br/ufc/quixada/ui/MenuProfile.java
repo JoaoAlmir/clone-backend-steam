@@ -10,7 +10,7 @@ import br.ufc.quixada.dao.GameDAO;
 import br.ufc.quixada.dao.ProfileDAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
-import jakarta.transaction.Transactional;
+
 
 import javax.swing.*;
 import java.util.List;
@@ -198,25 +198,24 @@ public class MenuProfile {
 	public void profileList(Profile pfl) {
 		JOptionPane.showMessageDialog(null, pfl == null ? "Nenhum profile encontrado" : pfl);
 	}
-
 	public void menu() {
 		StringBuilder menu = new StringBuilder("Menu Profiles\n")
 				.append("1 - Inserir\n")
 				.append("2 - Atualizar por id\n")
 				.append("3 - Remover por id\n")
 				.append("4 - Exibir por id\n")
-				.append("5 - Exibir todos\n")
+				.append("5 - Exibir todos\n----------------\n")
 				.append("6 - Adicionar amigo\n")
 				.append("7 - Remover amigos do id\n")
 				.append("8 - Exibir quantidade de amigos\n")
 				.append("9 - Exibir os amigos do id que contem nome\n")
 				.append("10 - Exibir amigos pelo nick\n")
 				.append("11 - Exibir amigos pelo local\n")
-				.append("12 - Exibir amigos pelo level maior ou igual\n")
+				.append("12 - Exibir amigos pelo level maior ou igual\n----------------\n")
 				.append("13 - Adicionar jogo a biblioteca\n")
 				.append("14 - Remover jogo da biblioteca\n")
 				.append("15 - Exibir quantidade de jogos na biblioteca\n")
-				.append("16 - Exibir games da biblioteca pelo preço menor ou igual\n")
+				.append("16 - Exibir games da biblioteca pelo preço menor ou igual\n----------------\n")
 				.append("17 - Adicionar jogo a wishlist\n")
 				.append("18 - Remover jogo da wishlist\n")
 				.append("19 - Exibir games da wishlist do profile pelo gênero\n")
