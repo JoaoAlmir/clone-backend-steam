@@ -33,11 +33,6 @@ public class Profile {
 
   @NonNull
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinTable(name = "wishlist", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
-  private List<Game> wishlist;
-
-  @NonNull
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
   private List<Game> lib;
 
@@ -47,10 +42,6 @@ public class Profile {
 
   @Min(value = 0, message = "O nível deve ser no mínimo 0")
   private int level;
-
-  public Integer getCountWishList() {
-    return this.wishlist.size();
-  };
 
   public Integer getCountFriends() {
     return this.friends.size();

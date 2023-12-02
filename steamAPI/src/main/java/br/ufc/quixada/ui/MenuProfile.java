@@ -62,28 +62,6 @@ public class MenuProfile {
 
 	}
 
-	public void addWishList(Profile pfl) {
-		try {
-
-			List<Game> games = baseGames.findAll();
-			StringBuilder menu = new StringBuilder("Adicionar jogo\n");
-			for (Game gm : games) {
-				menu.append(gm.getId()).append(" - ").append(gm.getName()).append("\n");
-			}
-			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
-			Game gm = baseGames.findById(id).orElse(null);
-			if (gm != null) {
-				pfl.getWishlist().add(gm);
-				baseProfiles.save(pfl);
-			} else {
-				JOptionPane.showMessageDialog(null, "Não foi encontrado jogo com o id " + id);
-			}
-		} catch (InvalidDataAccessApiUsageException e) {
-			log.error(e.getMessage(), e);
-			JOptionPane.showMessageDialog(null, "Esse perfil já possui esse jogo");
-		}
-
-	}
 
 	public void addFriend(Profile pfl) {
 		try {
@@ -136,28 +114,6 @@ public class MenuProfile {
 		}
 	}
 
-	public void removeWishList(Profile pfl) {
-		try {
-			List<Game> games = baseGames.findAll();
-			StringBuilder menu = new StringBuilder("Remover jogo\n");
-			for (Game gm : games) {
-				if (pfl.getWishlist().contains(gm)) {
-					menu.append(gm.getId()).append(" - ").append(gm.getName()).append("\n");
-				}
-			}
-			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
-			Game gm = baseGames.findById(id).orElse(null);
-			if (gm != null) {
-				pfl.getWishlist().remove(gm);
-				baseProfiles.save(pfl);
-			} else {
-				JOptionPane.showMessageDialog(null, "Não foi encontrado jogo com o id " + id);
-			}
-		} catch (InvalidDataAccessApiUsageException e) {
-			log.error(e.getMessage(), e);
-			JOptionPane.showMessageDialog(null, "Erro na remoção do jogo");
-		}
-	}
 
 	public void removeFriends(Profile pfl) {
 		try {
@@ -215,11 +171,7 @@ public class MenuProfile {
 				.append("13 - Adicionar jogo a biblioteca\n")
 				.append("14 - Remover jogo da biblioteca\n")
 				.append("15 - Exibir quantidade de jogos na biblioteca\n")
-				.append("16 - Exibir games da biblioteca pelo preço menor ou igual\n----------------\n")
-				.append("17 - Adicionar jogo a wishlist\n")
-				.append("18 - Remover jogo da wishlist\n")
-				.append("19 - Exibir games da wishlist do profile pelo gênero\n")
-				.append("20 - Exibir quantidade de jogos na wishlist\n")
+				.append("16 - Exibir games da biblioteca pelo preço menor ou igual\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
@@ -345,40 +297,6 @@ public class MenuProfile {
 						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
 						GameList(baseGames.getAllWishListGamesByPriceLess(id, price));
 						break;
-					case "17": // Adicionar jogo a wishlist
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							addWishList(pfl);
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "18": // Remover jogo da wishlist
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							removeWishList(pfl);
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-					case "19": // Exibir games da wishlist do profile pelo gênero
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String gender = JOptionPane.showInputDialog("Digite o genero");
-						GameList(baseGames.getAllWishListGamesByGender(id, gender));
-						break;
-					case "20": // Exibir quantidade de jogos na lista de favoritos
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						pfl = baseProfiles.findById(id).orElse(null);
-						if (pfl != null) {
-							JOptionPane.showMessageDialog(null,
-									"Quantidade de jogos na lista de favoritos: " + pfl.getCountWishList());
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
-						}
-						break;
-
 					case "0": // Sair
 						break;
 					default:
