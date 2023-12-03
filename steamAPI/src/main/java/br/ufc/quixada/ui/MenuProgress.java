@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ufc.quixada.dao.GameDAO;
-import br.ufc.quixada.dao.ProfileDAO;
-import br.ufc.quixada.dao.ProgressDAO;
+import br.ufc.quixada.dao.jpa.GameDAO;
+import br.ufc.quixada.dao.jpa.ProfileDAO;
+import br.ufc.quixada.dao.jpa.ProgressDAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
 import br.ufc.quixada.entity.Progress;

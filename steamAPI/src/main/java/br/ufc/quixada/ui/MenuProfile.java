@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
-import br.ufc.quixada.dao.GameDAO;
-import br.ufc.quixada.dao.ProfileDAO;
+import br.ufc.quixada.dao.jpa.GameDAO;
+import br.ufc.quixada.dao.jpa.ProfileDAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
 

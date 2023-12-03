@@ -1,4 +1,4 @@
-package br.ufc.quixada.dao;
+package br.ufc.quixada.dao.jpa;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
