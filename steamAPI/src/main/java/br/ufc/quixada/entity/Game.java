@@ -4,6 +4,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 
@@ -12,6 +14,7 @@ import jakarta.validation.constraints.Min;
         @NamedQuery(name = "gameByPriceLessThanEqual", query = "select g from Game g where g.price <= :price")
 })
 
+@Document
 @Entity
 @Table(name = "game")
 @NoArgsConstructor

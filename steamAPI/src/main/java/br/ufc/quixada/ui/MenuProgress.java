@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ufc.quixada.dao.jpa.GameDAO;
-import br.ufc.quixada.dao.jpa.ProfileDAO;
-import br.ufc.quixada.dao.jpa.ProgressDAO;
+import br.ufc.quixada.dao.jpa.GameJPADAO;
+import br.ufc.quixada.dao.jpa.ProfileJPADAO;
+import br.ufc.quixada.dao.jpa.ProgressJPADAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
 import br.ufc.quixada.entity.Progress;
@@ -20,13 +20,13 @@ import java.util.List;
 @Component
 public class MenuProgress {
 	@Autowired
-	private ProgressDAO baseProgress;
+	private ProgressJPADAO baseProgress;
 
 	@Autowired
-	private ProfileDAO baseProfile;
+	private ProfileJPADAO baseProfile;
 
 	@Autowired
-	private GameDAO baseGame;
+	private GameJPADAO baseGame;
 
 	public void obterProgress(Progress pg) {
 

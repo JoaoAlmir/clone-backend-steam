@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.ufc.quixada.dao.ProfileDAO;
 import br.ufc.quixada.entity.Profile;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface ProfileDAO extends JpaRepository<Profile, Integer> {
-
+public interface ProfileJPADAO extends ProfileDAO, JpaRepository<Profile, Integer> {
 	// NamedQuery
 	@Query(name = "profileById")
 	public Profile getProfileById(int id);

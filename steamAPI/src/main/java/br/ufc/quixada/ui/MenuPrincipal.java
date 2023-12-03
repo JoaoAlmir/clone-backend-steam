@@ -27,7 +27,6 @@ public class MenuPrincipal implements CommandLineRunner {
 	@Autowired
 	private MenuProgress menuProgress;
 
-
  public static void main(String[] args) {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(MenuPrincipal.class);
 		builder.headless(false).run(args);

@@ -1,6 +1,7 @@
 package br.ufc.quixada.entity;
 
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -13,6 +14,7 @@ import java.util.List;
     @NamedQuery(name = "profileByEmail", query = "select p from Profile p where p.email = :email"),
 })
 
+@Document
 @Entity
 @Table(name = "profile")
 @NoArgsConstructor
@@ -32,11 +34,11 @@ public class Profile {
   private String local;
 
   @NonNull
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
   private List<Game> lib;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+  @ManyToMany(cascade = CascadeType.REFRESH)
   @JoinTable(name = "friends", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_friend"))
   private List<Profile> friends;
 

@@ -2,6 +2,8 @@ package br.ufc.quixada.entity;
 
 import lombok.*;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -11,6 +13,7 @@ import jakarta.validation.constraints.Min;
     
 })
 
+@Document
 @Entity
 @Table(name = "progress")
 @NoArgsConstructor

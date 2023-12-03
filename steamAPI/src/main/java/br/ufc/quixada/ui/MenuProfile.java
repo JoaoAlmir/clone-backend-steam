@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
-import br.ufc.quixada.dao.jpa.GameDAO;
-import br.ufc.quixada.dao.jpa.ProfileDAO;
+import br.ufc.quixada.dao.jpa.GameJPADAO;
+import br.ufc.quixada.dao.jpa.ProfileJPADAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
 
@@ -19,10 +19,10 @@ import java.util.List;
 @Component
 public class MenuProfile {
 	@Autowired
-	private ProfileDAO baseProfiles;
+	private ProfileJPADAO baseProfiles;
 
 	@Autowired
-	private GameDAO baseGames;
+	private GameJPADAO baseGames;
 
 	public void createProfile(Profile pfl) {
 

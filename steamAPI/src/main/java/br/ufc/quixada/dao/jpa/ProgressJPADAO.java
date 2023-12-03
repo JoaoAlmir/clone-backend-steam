@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.ufc.quixada.dao.ProgressDAO;
 import br.ufc.quixada.entity.Progress;
 
 @Repository
-public interface ProgressDAO extends JpaRepository<Progress, Integer> {
+public interface ProgressJPADAO extends ProgressDAO, JpaRepository<Progress, Integer> {
 
   // NamedQuery
   @Query(name = "getCompleteProgress")
@@ -29,9 +30,5 @@ public interface ProgressDAO extends JpaRepository<Progress, Integer> {
   // NativeQuery
   @Query(value = "select * from progress where minutes_played >= :minutes", nativeQuery = true)
   public List<Progress> getAllProgressByTime(Integer minutes);
-
- 
-
-
 
 }

@@ -8,12 +8,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.ufc.quixada.dao.GameDAO;
 import br.ufc.quixada.entity.Game;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface GameDAO extends JpaRepository<Game, Integer> {
-
+public interface GameJPADAO extends GameDAO, JpaRepository<Game, Integer> {
   // NamedQuery
   @Query(name = "gameByName")
   public List<Game> getGameByName(String name);
