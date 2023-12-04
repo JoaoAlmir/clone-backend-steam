@@ -21,11 +21,11 @@ public interface ProgressJPADAO extends ProgressDAO, JpaRepository<Progress, Str
 
   // NativeQuery
   @Query(value = "select * from progress where id_profile = :id", nativeQuery = true)
-  public List<Progress> findByProfile(String id);
+  public List<Progress> findByProfile_Id(String id);
 
   // NativeQuery
   @Query(value = "select * from progress where id_game = :id", nativeQuery = true)
-  public List<Progress> findByGame(String id);
+  public List<Progress> findByGame_Id(String id);
 
   // NativeQuery
   @Query(value = "select * from progress where minute_played >= :minutes", nativeQuery = true)

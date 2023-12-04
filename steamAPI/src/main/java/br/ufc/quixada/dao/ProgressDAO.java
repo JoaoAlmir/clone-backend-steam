@@ -12,9 +12,9 @@ public interface ProgressDAO {
 
   public List<Progress> findByTrophyQuantity(int quantity);
 
-  // public List<Progress> findByProfile(String id);
+  public List<Progress> findByProfile_Id(String id);
 
-  // public List<Progress> findByGame(String id);
+  public List<Progress> findByGame_Id(String id);
 
   public List<Progress> findByMinutesPlayedGreaterThan(Integer minutes);
 }

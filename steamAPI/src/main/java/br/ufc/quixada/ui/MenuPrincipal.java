@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication(scanBasePackages = "br.ufc.quixada")
 @EntityScan("br.ufc.quixada.entity")
-@EnableJpaRepositories("br.ufc.quixada.dao.jpa")
-// @EnableMongoRepositories("br.ufc.quixada.dao.mongo")
+// @EnableJpaRepositories("br.ufc.quixada.dao.jpa")
+@EnableMongoRepositories("br.ufc.quixada.dao.mongo")
 @Slf4j
 public class MenuPrincipal implements CommandLineRunner {
 

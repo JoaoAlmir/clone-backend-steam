@@ -17,11 +17,11 @@ import java.util.List;
 @Slf4j
 @Component
 public class MenuGame {
-	@Autowired
-	private GameJPADAO baseGames;
-
 	// @Autowired
-	// private GameMongoDAO baseGames;
+	// private GameJPADAO baseGames;
+
+	@Autowired
+	private GameMongoDAO baseGames;
 
 	public void obterGame(Game pfl) {
 		String name = JOptionPane.showInputDialog("Name", pfl.getName());

@@ -23,23 +23,23 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class MenuProgress {
-	@Autowired
-	private ProgressJPADAO baseProgress;
-
 	// @Autowired
-	// private ProgressMongoDAO baseProgress;
+	// private ProgressJPADAO baseProgress;
 
 	@Autowired
-	private ProfileJPADAO baseProfile;
+	private ProgressMongoDAO baseProgress;
 
 	// @Autowired
-	// private ProfileMongoDAO baseProfile;
+	// private ProfileJPADAO baseProfile;
 
 	@Autowired
-	private GameJPADAO baseGame;
+	private ProfileMongoDAO baseProfile;
 
 	// @Autowired
-	// private GameMongoDAO baseGame;
+	// private GameJPADAO baseGame;
+
+	@Autowired
+	private GameMongoDAO baseGame;
 
 	public void obterProgress(Progress pg) {
 		String idProfile = JOptionPane.showInputDialog("Digite o id do perfil");
@@ -91,8 +91,8 @@ public class MenuProgress {
 				.append("5 - Exibir todos\n")
 				.append("6 - Exibir todos os perfis com jogos 100% completos\n")
 				.append("7 - Exibir todos sem nenhum trofeu\n")
-				// .append("8 - Exibir todos progressos pelo id do jogador\n")
-				// .append("9 - Exibir todos progressos pelo id do jogo\n")
+				.append("8 - Exibir todos progressos pelo id do jogador\n")
+				.append("9 - Exibir todos progressos pelo id do jogo\n")
 				.append("8 - Exibir todos progressos com minutos maiores ou iguais\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
@@ -144,17 +144,17 @@ public class MenuProgress {
 					case "7": // Exibir todos sem nenhum trofeu
 						listAllProgressSimple(baseProgress.findByTrophyQuantity(0));
 						break;
-					// case "8": // Exibir todos progressos pelo id do jogador
-					// String idPf = JOptionPane.showInputDialog("Digite o id do profile");
-					// // listAllProgressSimple(baseProgress.findByProfile(idPf));
-					// break;
+					case "8": // Exibir todos progressos pelo id do jogador
+					String idPf = JOptionPane.showInputDialog("Digite o id do profile");
+					listAllProgressSimple(baseProgress.findByProfile_Id(idPf));
+					break;
 
-					// case "9": // Exibir todos progressos pelo id do jogo
-					// String idGm = JOptionPane.showInputDialog("Digite o id do game");
-					// // listAllProgressSimple(baseProgress.findByGame(idGm));
-					// break;
+					case "9": // Exibir todos progressos pelo id do jogo
+					String idGm = JOptionPane.showInputDialog("Digite o id do game");
+					listAllProgressSimple(baseProgress.findByGame_Id(idGm));
+					break;
 
-					case "8":
+					case "10":
 						Integer minutes = Integer.parseInt(JOptionPane.showInputDialog("Digite o tempo de jogo"));
 						listAllProgressSimple(baseProgress.findByMinutesPlayedGreaterThan(minutes));
 						break;

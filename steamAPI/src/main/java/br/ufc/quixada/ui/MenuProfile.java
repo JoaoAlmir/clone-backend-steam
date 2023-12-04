@@ -19,17 +19,17 @@ import java.util.List;
 @Slf4j
 @Component
 public class MenuProfile {
-	@Autowired
-	private ProfileJPADAO baseProfiles;
-
 	// @Autowired
-	// private ProfileMongoDAO baseProfiles;
+	// private ProfileJPADAO baseProfiles;
 
 	@Autowired
-	private GameJPADAO baseGames;
+	private ProfileMongoDAO baseProfiles;
 
 	// @Autowired
-	// private GameMongoDAO baseGames;
+	// private GameJPADAO baseGames;
+
+	@Autowired
+	private GameMongoDAO baseGames;
 
 	public void createProfile(Profile pfl) {
 
@@ -259,8 +259,8 @@ public class MenuProfile {
 						id = JOptionPane.showInputDialog("Digite o id do profile");
 						String nickName = JOptionPane.showInputDialog("Digite o nickname");
 						nickName = "%" + nickName + "%";
-						// ProfileLists(baseProfiles.findFriendsByNickNameIgnoreCaseContaining(id,
-						// nickName));
+						ProfileLists(baseProfiles.findByFriends_IdAndFriends_NickName(id,
+						nickName));
 						break;
 					case "11": // Exibir amigos pelo local
 						id = JOptionPane.showInputDialog("Digite o id do profile");
