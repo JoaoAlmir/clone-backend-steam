@@ -5,7 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ufc.quixada.dao.jpa.GameDAO;
+import br.ufc.quixada.dao.jpa.GameJPADAO;
+import br.ufc.quixada.dao.mongo.GameMongoDAO;
 import br.ufc.quixada.entity.Game;
 
 import javax.swing.*;
@@ -17,7 +18,10 @@ import java.util.List;
 @Component
 public class MenuGame {
 	@Autowired
-	private GameDAO baseGames;
+	private GameJPADAO baseGames;
+
+	// @Autowired
+	// private GameMongoDAO baseGames;
 
 	public void obterGame(Game pfl) {
 		String name = JOptionPane.showInputDialog("Name", pfl.getName());
@@ -26,7 +30,7 @@ public class MenuGame {
 		Double price = Double.parseDouble(JOptionPane.showInputDialog("Price", pfl.getPrice()));
 		String developer = JOptionPane.showInputDialog("Developer", pfl.getDeveloper());
 		String publisher = JOptionPane.showInputDialog("Publisher", pfl.getPublisher());
-		LocalDate release_date = LocalDate.parse(JOptionPane.showInputDialog("Release Date", pfl.getRelease_date()));
+		LocalDate releaseDate = LocalDate.parse(JOptionPane.showInputDialog("Release Date", pfl.getReleaseDate()));
 		String gender = JOptionPane.showInputDialog("Gender", pfl.getGender());
 
 		pfl.setName(name);
@@ -36,9 +40,9 @@ public class MenuGame {
 		pfl.setPrice(price);
 		pfl.setDeveloper(developer);
 		pfl.setPublisher(publisher);
-		pfl.setRelease_date(release_date);
+		pfl.setReleaseDate(releaseDate);
 	}
-	
+
 	public void listaGames(List<Game> games) {
 		StringBuilder listagem = new StringBuilder();
 		for (Game gm : games) {
@@ -65,13 +69,12 @@ public class MenuGame {
 				.append("10 - Exibir todos contendo a descricao\n")
 				.append("11 - Exibir jogos com um revew bom (>= 7)\n")
 				.append("12 - Exibir jogos em um intervalo de preços\n")
-				.append("13 - Exibir jogos a partir de uma data\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
 			try {
 				Game gm;
-				Integer id;
+				String id;
 				opcao = JOptionPane.showInputDialog(menu);
 				switch (opcao) {
 					case "1": // Inserir
@@ -80,7 +83,7 @@ public class MenuGame {
 						baseGames.save(gm);
 						break;
 					case "2": // Atualizar por id
-						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do game a ser alterado"));
+						id = JOptionPane.showInputDialog("Digite o id do game a ser alterado");
 						gm = baseGames.findById(id).orElse(null);
 						if (gm != null) {
 							obterGame(gm);
@@ -90,16 +93,16 @@ public class MenuGame {
 						}
 						break;
 					case "3": // Remover por id
-						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do game a ser removido"));
+						id = JOptionPane.showInputDialog("Digite o id do game a ser removido");
 						gm = baseGames.findById(id).orElse(null);
 						if (gm != null) {
-							baseGames.removeGameComplete(id);
+							baseGames.deleteById(id);
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado game com o id " + id);
 						}
 						break;
 					case "4": // Exibir por id
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do game a ser exibido"));
+						id = JOptionPane.showInputDialog("Digite o id do game a ser exibido");
 						gm = baseGames.findById(id).orElse(null);
 						if (gm != null) {
 							listaGame(gm);
@@ -112,36 +115,31 @@ public class MenuGame {
 						break;
 					case "6": // Exibir todos os jogos pelo nome
 						String name = JOptionPane.showInputDialog("Digite o nome");
-						name = "%" + name + "%";
-						listaGames(baseGames.getGameByName(name));
+						listaGames(baseGames.findByNameIgnoreCaseContaining(name));
 						break;
 					case "7": // Exibir todos os jogos com preço menor ou igual
 						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
-						listaGames(baseGames.gameByPriceLessThanEqual(price));
+						listaGames(baseGames.findByPriceLessThan(price));
 						break;
 					case "8": // Exibir todos os jogos com o desenvolvedor
 						String developer = JOptionPane.showInputDialog("Digite o desenvolvedor");
-						listaGames(baseGames.getAllGamesByDeveloperStartingWithIgnoreCase(developer));
+						listaGames(baseGames.findByDeveloperIgnoreCaseContaining(developer));
 						break;
 					case "9": // Exibir todos os jogos com o publicador
-					String publisher = JOptionPane.showInputDialog("Digite o publicador");
-					listaGames(baseGames.getAllGamesByPublisher(publisher));
-					break;
+						String publisher = JOptionPane.showInputDialog("Digite o publicador");
+						listaGames(baseGames.findByPublisherIgnoreCaseContaining(publisher));
+						break;
 					case "10": // Exibir todos os jogos contendo a descricao
 						String description = JOptionPane.showInputDialog("Digite a descricao");
-						listaGames(baseGames.getAllGamesByDescriptionContaining(description));
+						listaGames(baseGames.findByDescriptionContaining(description));
 						break;
 					case "11": // Exibir todos os jogos melhores que 7
-					listaGames(baseGames.getAllGamesByGoodReview());
-					break;
+						listaGames(baseGames.findByReviewGreaterThan(7));
+						break;
 					case "12": // Exibir intervalo de precos
 						double price1 = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco inicial"));
 						double price2 = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco final"));
-						listaGames(baseGames.getAllGamesByPriceWithInterval(price1, price2));
-						break;
-					case "13": // Exibir todos os jogos contendo a descricao
-						LocalDate date = LocalDate.parse(JOptionPane.showInputDialog("Digite a data no padrão AAAA-MM-DD"));
-						listaGames(baseGames.getAllGamesByStartingRealeaseDate(date));
+						listaGames(baseGames.findByPriceBetween(price1, price2));
 						break;
 					case "0": // Sair
 						break;

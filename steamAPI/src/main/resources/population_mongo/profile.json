@@ -1,0 +1,92 @@
+[
+  {
+      "email": "luis347@gmail.com",
+      "level": 5,
+      "local": "Brasil",
+      "name": "Luis Sousa",
+      "nickName": "luhso",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "marioliveira12@gmail.com",
+      "level": 24,
+      "local": "Brasil",
+      "name": "Mariana Oliveira",
+      "nickName": "tuka",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "estevao_nunes@gmail.com",
+      "level": 9,
+      "local": "Brasil",
+      "name": "Estevão Nunes",
+      "nickName": "nuvão",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "luanasthephany@gmail.com",
+      "level": 29,
+      "local": "Brasil",
+      "name": "Luana Sthephany",
+      "nickName": "sthe",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "vladimirbastos2343@gmail.com",
+      "level": 1,
+      "local": "Brasil",
+      "name": "Vladimir Bastos",
+      "nickName": "vladb",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "olavomendes@gmail.com",
+      "level": 45,
+      "local": "Brasil",
+      "name": "Olavo Mendes",
+      "nickName": "menvo",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "estercasto65@gmail.com",
+      "level": 36,
+      "local": "Brasil",
+      "name": "Ester Castro",
+      "nickName": "ester12",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "laraponcio@gmail.com",
+      "level": 10,
+      "local": "Brasil",
+      "name": "Lara Poncio",
+      "nickName": "lah12",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "carolinavasconcelos21@gmail.com",
+      "level": 32,
+      "local": "Brasil",
+      "name": "Carolina Vasconcelos",
+      "nickName": "carolv",
+      "lib":[],
+      "friends":[]
+  },
+  {
+      "email": "gustavomercedes@gmail.com",
+      "level": 43,
+      "local": "Brasil",
+      "name": "Gustavo Mercedes",
+      "nickName": "gusvo",
+      "lib":[],
+      "friends":[]
+  }
+]

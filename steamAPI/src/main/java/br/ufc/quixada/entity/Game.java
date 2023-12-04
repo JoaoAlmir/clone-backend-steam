@@ -4,6 +4,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 
@@ -12,6 +14,7 @@ import jakarta.validation.constraints.Min;
         @NamedQuery(name = "gameByPriceLessThanEqual", query = "select g from Game g where g.price <= :price")
 })
 
+@Document
 @Entity
 @Table(name = "game")
 @NoArgsConstructor
@@ -20,8 +23,8 @@ import jakarta.validation.constraints.Min;
 @Data
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @NonNull
     private String name;
@@ -43,9 +46,8 @@ public class Game {
     private String publisher;
 
     @NonNull
-    private LocalDate release_date;
+    private LocalDate releaseDate;
 
     @NonNull
     private String gender;
-
 }

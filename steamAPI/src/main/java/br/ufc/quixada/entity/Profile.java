@@ -1,6 +1,7 @@
 package br.ufc.quixada.entity;
 
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -13,6 +14,7 @@ import java.util.List;
     @NamedQuery(name = "profileByEmail", query = "select p from Profile p where p.email = :email"),
 })
 
+@Document
 @Entity
 @Table(name = "profile")
 @NoArgsConstructor
@@ -20,24 +22,24 @@ import java.util.List;
 @Data
 public class Profile {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
   @NonNull
   private String name;
   @NonNull
   private String email;
   @NonNull
-  private String nick_name;
+  private String nickName;
   @NonNull
   private String local;
 
   @NonNull
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "idProfile"), inverseJoinColumns = @JoinColumn(name = "idGame"))
   private List<Game> lib;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-  @JoinTable(name = "friends", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_friend"))
+  @ManyToMany(cascade = CascadeType.REFRESH)
+  @JoinTable(name = "friends", joinColumns = @JoinColumn(name = "idProfile"), inverseJoinColumns = @JoinColumn(name = "idFriend"))
   private List<Profile> friends;
 
   @Min(value = 0, message = "O nível deve ser no mínimo 0")
@@ -49,5 +51,5 @@ public class Profile {
 
   public Integer getCountLib() {
     return this.lib.size();
-  };
+  }
 }

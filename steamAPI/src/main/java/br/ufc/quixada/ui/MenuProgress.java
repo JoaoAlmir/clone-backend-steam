@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ufc.quixada.dao.jpa.GameDAO;
-import br.ufc.quixada.dao.jpa.ProfileDAO;
-import br.ufc.quixada.dao.jpa.ProgressDAO;
+import br.ufc.quixada.dao.jpa.GameJPADAO;
+import br.ufc.quixada.dao.jpa.ProfileJPADAO;
+import br.ufc.quixada.dao.jpa.ProgressJPADAO;
+import br.ufc.quixada.dao.mongo.GameMongoDAO;
+import br.ufc.quixada.dao.mongo.ProfileMongoDAO;
+import br.ufc.quixada.dao.mongo.ProgressMongoDAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
 import br.ufc.quixada.entity.Progress;
@@ -15,36 +18,44 @@ import br.ufc.quixada.entity.Progress;
 import javax.swing.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Component
 public class MenuProgress {
 	@Autowired
-	private ProgressDAO baseProgress;
+	private ProgressJPADAO baseProgress;
+
+	// @Autowired
+	// private ProgressMongoDAO baseProgress;
 
 	@Autowired
-	private ProfileDAO baseProfile;
+	private ProfileJPADAO baseProfile;
+
+	// @Autowired
+	// private ProfileMongoDAO baseProfile;
 
 	@Autowired
-	private GameDAO baseGame;
+	private GameJPADAO baseGame;
+
+	// @Autowired
+	// private GameMongoDAO baseGame;
 
 	public void obterProgress(Progress pg) {
+		String idProfile = JOptionPane.showInputDialog("Digite o id do perfil");
+		String idGame = JOptionPane.showInputDialog("Digite o id do jogo");
+		int progressPercent = Integer.parseInt(JOptionPane.showInputDialog("Digite o progresso em porcentagem"));
+		int minutesPlayed = Integer.parseInt(JOptionPane.showInputDialog("Digite os minutos jogados"));
+		int trophyQuantity = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de troféus"));
 
-		int id_profile = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do perfil"));
-		int id_game = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do jogo"));
-		int progress_percent = Integer.parseInt(JOptionPane.showInputDialog("Digite o progresso em porcentagem"));
-		int minutes_played = Integer.parseInt(JOptionPane.showInputDialog("Digite os minutos jogados"));
-		int trophy_quantity = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de troféus"));
-
-		Profile pr = baseProfile.findById(id_profile).orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
-		Game gm = baseGame.findById(id_game).orElseThrow(() -> new RuntimeException("Jogo não encontrado"));
+		Profile pr = baseProfile.findById(idProfile).orElse(null);
+		Game gm = baseGame.findById(idGame).orElse(null);
 
 		pg.setProfile(pr);
 		pg.setGame(gm);
-		pg.setProgress_percent(progress_percent);
-		pg.setMinutes_played(minutes_played);
-		pg.setTrophy_quantity(trophy_quantity);
-
+		pg.setProgressPercent(progressPercent);
+		pg.setMinutesPlayed(minutesPlayed);
+		pg.setTrophyQuantity(trophyQuantity);
 	}
 
 	public void listAllProgress(List<Progress> progre) {
@@ -58,9 +69,10 @@ public class MenuProgress {
 	public void listAllProgressSimple(List<Progress> progre) {
 		StringBuilder listagem = new StringBuilder();
 		for (Progress pg : progre) {
-			listagem.append(pg.getProfile().getName()).append( "("+ pg.getProfile().getId()+")").append(" - ")
-					.append(pg.getGame().getName()).append("("+pg.getGame().getId()+")").append(" - ").append(pg.getProgress_percent()).append("% - ")
-					.append(pg.getTrophy_quantity()).append(" Troféus").append(" - ").append(pg.getMinutes_played())
+			listagem.append(pg.getProfile().getName()).append("(" + pg.getProfile().getId() + ")").append(" - ")
+					.append(pg.getGame().getName()).append("(" + pg.getGame().getId() + ")").append(" - ")
+					.append(pg.getProgressPercent()).append("% - ")
+					.append(pg.getTrophyQuantity()).append(" Troféus").append(" - ").append(pg.getMinutesPlayed())
 					.append(" minutos jogados\n");
 		}
 		JOptionPane.showMessageDialog(null, listagem.length() == 0 ? "Nenhum progress encontrado" : listagem);
@@ -79,15 +91,15 @@ public class MenuProgress {
 				.append("5 - Exibir todos\n")
 				.append("6 - Exibir todos os perfis com jogos 100% completos\n")
 				.append("7 - Exibir todos sem nenhum trofeu\n")
-				.append("8 - Exibir todos progressos pelo id do jogador\n")
-				.append("9 - Exibir todos progressos pelo id do jogo\n")
-				.append("10 - Exibir todos progressos com minutos maiores ou iguais\n")
+				// .append("8 - Exibir todos progressos pelo id do jogador\n")
+				// .append("9 - Exibir todos progressos pelo id do jogo\n")
+				.append("8 - Exibir todos progressos com minutos maiores ou iguais\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
 			try {
 				Progress gm;
-				Integer id;
+				String id;
 				opcao = JOptionPane.showInputDialog(menu);
 				switch (opcao) {
 					case "1": // Inserir
@@ -96,7 +108,7 @@ public class MenuProgress {
 						baseProgress.save(gm);
 						break;
 					case "2": // Atualizar por id
-						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do progresso a ser alterado"));
+						id = JOptionPane.showInputDialog("Digite o id do progresso a ser alterado");
 						gm = baseProgress.findById(id).orElse(null);
 						if (gm != null) {
 							obterProgress(gm);
@@ -106,7 +118,7 @@ public class MenuProgress {
 						}
 						break;
 					case "3": // Remover por id
-						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do progresso a ser removido"));
+						id = JOptionPane.showInputDialog("Digite o id do progresso a ser removido");
 						gm = baseProgress.findById(id).orElse(null);
 						if (gm != null) {
 							baseProgress.deleteById(gm.getId());
@@ -115,7 +127,7 @@ public class MenuProgress {
 						}
 						break;
 					case "4": // Exibir por id
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do progresso"));
+						id = JOptionPane.showInputDialog("Digite o id do progresso");
 						gm = baseProgress.findById(id).orElse(null);
 						if (gm != null) {
 							listProgress(gm);
@@ -127,24 +139,24 @@ public class MenuProgress {
 						listAllProgress(baseProgress.findAll());
 						break;
 					case "6": // Exibir todos os perfis com jogos 100% completos
-						listAllProgressSimple(baseProgress.getCompleteProgress());
+						listAllProgressSimple(baseProgress.findByProgressPercent(100));
 						break;
 					case "7": // Exibir todos sem nenhum trofeu
-						listAllProgressSimple(baseProgress.getAllEmptyTrophy());
+						listAllProgressSimple(baseProgress.findByTrophyQuantity(0));
 						break;
-					case "8": // Exibir todos progressos pelo id do jogador
-						Integer id_pf = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						listAllProgressSimple(baseProgress.getAllProgressByIdProfile(id_pf));
-						break;
+					// case "8": // Exibir todos progressos pelo id do jogador
+					// String idPf = JOptionPane.showInputDialog("Digite o id do profile");
+					// // listAllProgressSimple(baseProgress.findByProfile(idPf));
+					// break;
 
-					case "9": // Exibir todos progressos pelo id do jogo
-						Integer id_gm = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do game"));
-						listAllProgressSimple(baseProgress.getAllProgressById_Game(id_gm));
-						break;
+					// case "9": // Exibir todos progressos pelo id do jogo
+					// String idGm = JOptionPane.showInputDialog("Digite o id do game");
+					// // listAllProgressSimple(baseProgress.findByGame(idGm));
+					// break;
 
-					case "10":
+					case "8":
 						Integer minutes = Integer.parseInt(JOptionPane.showInputDialog("Digite o tempo de jogo"));
-						listAllProgressSimple(baseProgress.getAllProgressByTime(minutes));
+						listAllProgressSimple(baseProgress.findByMinutesPlayedGreaterThan(minutes));
 						break;
 					case "0": // Sair
 						break;
