@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 
 import br.ufc.quixada.dao.jpa.GameJPADAO;
 import br.ufc.quixada.dao.jpa.ProfileJPADAO;
+import br.ufc.quixada.dao.mongo.GameMongoDAO;
+import br.ufc.quixada.dao.mongo.ProfileMongoDAO;
 import br.ufc.quixada.entity.Game;
 import br.ufc.quixada.entity.Profile;
-
 
 import javax.swing.*;
 import java.util.List;
@@ -21,20 +22,26 @@ public class MenuProfile {
 	@Autowired
 	private ProfileJPADAO baseProfiles;
 
+	// @Autowired
+	// private ProfileMongoDAO baseProfiles;
+
 	@Autowired
 	private GameJPADAO baseGames;
+
+	// @Autowired
+	// private GameMongoDAO baseGames;
 
 	public void createProfile(Profile pfl) {
 
 		String name = JOptionPane.showInputDialog("Name", pfl.getName());
 		String email = JOptionPane.showInputDialog("Email", pfl.getEmail());
-		String nick_name = JOptionPane.showInputDialog("Nick Name", pfl.getNick_name());
+		String nickName = JOptionPane.showInputDialog("Nick Name", pfl.getNickName());
 		String local = JOptionPane.showInputDialog("Local", pfl.getLocal());
 
 		int level = Integer.parseInt(JOptionPane.showInputDialog("Level", pfl.getLevel()));
 		pfl.setName(name);
 		pfl.setEmail(email);
-		pfl.setNick_name(nick_name);
+		pfl.setNickName(nickName);
 		pfl.setLocal(local);
 		pfl.setLevel(level);
 	}
@@ -47,7 +54,7 @@ public class MenuProfile {
 			for (Game gm : games) {
 				menu.append(gm.getId()).append(" - ").append(gm.getName()).append("\n");
 			}
-			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
+			String id = JOptionPane.showInputDialog(menu);
 			Game gm = baseGames.findById(id).orElse(null);
 			if (gm != null) {
 				pfl.getLib().add(gm);
@@ -62,7 +69,6 @@ public class MenuProfile {
 
 	}
 
-
 	public void addFriend(Profile pfl) {
 		try {
 
@@ -72,7 +78,7 @@ public class MenuProfile {
 				if (p.getId() != pfl.getId())
 					menu.append(p.getId()).append(" - ").append(p.getName()).append("\n");
 			}
-			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
+			String id = JOptionPane.showInputDialog(menu);
 			Profile p = baseProfiles.findById(id).orElse(null);
 			if (p != null) {
 				if (p.getId() == pfl.getId()) {
@@ -100,7 +106,7 @@ public class MenuProfile {
 					menu.append(gm.getId()).append(" - ").append(gm.getName()).append("\n");
 				}
 			}
-			Integer id = Integer.valueOf(JOptionPane.showInputDialog(menu));
+			String id = JOptionPane.showInputDialog(menu);
 			Game gm = baseGames.findById(id).orElse(null);
 			if (gm != null) {
 				pfl.getLib().remove(gm);
@@ -113,7 +119,6 @@ public class MenuProfile {
 			JOptionPane.showMessageDialog(null, "Erro na remoção do jogo");
 		}
 	}
-
 
 	public void removeFriends(Profile pfl) {
 		try {
@@ -154,6 +159,7 @@ public class MenuProfile {
 	public void profileList(Profile pfl) {
 		JOptionPane.showMessageDialog(null, pfl == null ? "Nenhum profile encontrado" : pfl);
 	}
+
 	public void menu() {
 		StringBuilder menu = new StringBuilder("Menu Profiles\n")
 				.append("1 - Inserir\n")
@@ -171,13 +177,12 @@ public class MenuProfile {
 				.append("13 - Adicionar jogo a biblioteca\n")
 				.append("14 - Remover jogo da biblioteca\n")
 				.append("15 - Exibir quantidade de jogos na biblioteca\n")
-				.append("16 - Exibir games da biblioteca pelo preço menor ou igual\n")
 				.append("0 - Menu anterior");
 		String opcao = "x";
 		do {
 			try {
 				Profile pfl;
-				Integer id;
+				String id;
 				opcao = JOptionPane.showInputDialog(menu);
 				switch (opcao) {
 					case "1": // Inserir
@@ -186,7 +191,7 @@ public class MenuProfile {
 						baseProfiles.save(pfl);
 						break;
 					case "2": // Atualizar por id
-						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do profile a ser alterado"));
+						id = JOptionPane.showInputDialog("Digite o id do profile a ser alterado");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							createProfile(pfl);
@@ -196,16 +201,16 @@ public class MenuProfile {
 						}
 						break;
 					case "3": // Remover por id
-						id = Integer.valueOf(JOptionPane.showInputDialog("Digite o id do profile a ser removido"));
+						id = JOptionPane.showInputDialog("Digite o id do profile a ser removido");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
-							baseProfiles.removeProfileComplete(id);
+							baseProfiles.deleteById(id);
 						} else {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
 					case "4": // Exibir por id
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile a ser exibido"));
+						id = JOptionPane.showInputDialog("Digite o id do profile a ser exibido");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							profileList(pfl);
@@ -217,7 +222,7 @@ public class MenuProfile {
 						ProfileLists(baseProfiles.findAll());
 						break;
 					case "6": // Adicionar amigo
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							addFriend(pfl);
@@ -226,7 +231,7 @@ public class MenuProfile {
 						}
 						break;
 					case "7":// Remover amigo
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							removeFriends(pfl);
@@ -235,7 +240,7 @@ public class MenuProfile {
 						}
 						break;
 					case "8": // Exibir quantidade de amigos
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							JOptionPane.showMessageDialog(null, "Quantidade de amigos: " + pfl.getCountFriends());
@@ -244,29 +249,31 @@ public class MenuProfile {
 						}
 						break;
 					case "9": // Exibir todos os amigos que contém nome
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String name_friend = JOptionPane.showInputDialog("Digite o nome do amigo");
-						name_friend = "%" + name_friend + "%";
-						ProfileLists(baseProfiles.getAllFriendsByName(id, name_friend));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
+						String nameFriend = JOptionPane.showInputDialog("Digite o nome do amigo");
+						nameFriend = "%" + nameFriend + "%";
+						// ProfileLists(baseProfiles.findFriendsByNameIgnoreCaseContaining(id,
+						// nameFriend));
 						break;
 					case "10": // Exibir amigos pelo nickname
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						String nick_name = JOptionPane.showInputDialog("Digite o nickname");
-						nick_name = "%" + nick_name + "%";
-						ProfileLists(baseProfiles.getAllFriendsNickName(id, nick_name));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
+						String nickName = JOptionPane.showInputDialog("Digite o nickname");
+						nickName = "%" + nickName + "%";
+						// ProfileLists(baseProfiles.findFriendsByNickNameIgnoreCaseContaining(id,
+						// nickName));
 						break;
 					case "11": // Exibir amigos pelo local
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						String local = JOptionPane.showInputDialog("Digite o local");
-						ProfileLists(baseProfiles.getAllFriendsByLocal(id, local));
+						// ProfileLists(baseProfiles.findFriendsByLocal(id, local));
 						break;
 					case "12": // Exibir amigos pelo level maior ou igual
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						int level = Integer.parseInt(JOptionPane.showInputDialog("Digite o level"));
-						ProfileLists(baseProfiles.getAllFriendsByLevelMore(id, level));
+						// ProfileLists(baseProfiles.findFriendsByLevelGreaterThan(id, level));
 						break;
 					case "13": // Adicionar jogo a biblioteca
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							addGame(pfl);
@@ -275,7 +282,7 @@ public class MenuProfile {
 						}
 						break;
 					case "14": // Remover jogo da biblioteca
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							removeGame(pfl);
@@ -284,7 +291,7 @@ public class MenuProfile {
 						}
 						break;
 					case "15": // Exibir quantidade de jogos na biblioteca
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
+						id = JOptionPane.showInputDialog("Digite o id do profile");
 						pfl = baseProfiles.findById(id).orElse(null);
 						if (pfl != null) {
 							JOptionPane.showMessageDialog(null, "Quantidade de jogos: " + pfl.getCountLib());
@@ -292,11 +299,7 @@ public class MenuProfile {
 							JOptionPane.showMessageDialog(null, "Não foi encontrado profile com o id " + id);
 						}
 						break;
-					case "16": // Exibir games da biblioteca pelo preço menor ou igual
-						id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do profile"));
-						Double price = Double.parseDouble(JOptionPane.showInputDialog("Digite o preco"));
-						GameList(baseGames.getAllWishListGamesByPriceLess(id, price));
-						break;
+
 					case "0": // Sair
 						break;
 					default:

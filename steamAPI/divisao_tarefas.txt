@@ -1,0 +1,7 @@
+Ações de cada integrante
+==================================================
+Reorganização do menu : Almir
+Otimização de requisições do banco : Andreina
+Porte para o mongo: Almir e Andreina
+Porte para o sqlite: Almir e Andreina
+Testes: Almir e Andreina

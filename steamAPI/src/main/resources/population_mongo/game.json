@@ -1,0 +1,132 @@
+[
+  {
+      "description": "A good game for make a good dinner",
+      "developer": "tecent",
+      "gender": "cook",
+      "name": "CookingSimulator",
+      "price": 34.0,
+      "publisher": "Steam",
+      "releaseDate": "2023-04-21",
+      "review": 8
+  },
+  {
+      "description": "A game to create a good fighter",
+      "developer": "sony",
+      "gender": "rpg",
+      "name": "LegendOfGuntar",
+      "price": 120.0,
+      "publisher": "Epic",
+      "releaseDate": "2022-01-09",
+      "review": 9.2
+  },
+  {
+      "description": "A game to increase your power",
+      "developer": "nintendo",
+      "gender": "fight",
+      "name": "StreetFighter",
+      "price": 54.0,
+      "publisher": "Origin",
+      "releaseDate": "2021-07-15",
+      "review": 6.5
+  },
+  {
+      "description": "A game to keep your patience",
+      "developer": "blizzard",
+      "gender": "moba",
+      "name": "HoligarLox",
+      "price": 27.0,
+      "publisher": "Steam",
+      "releaseDate": "2020-05-18",
+      "review": 7.0
+  },
+  {
+      "description": "A game to make a good mage",
+      "developer": "microsoft",
+      "gender": "mmorpg",
+      "name": "PoulingStars",
+      "price": 78.0,
+      "publisher": "Epic",
+      "releaseDate": "2019-09-04",
+      "review": 4.6
+  },
+  {
+      "description": "A game to have fun",
+      "developer": "sony",
+      "gender": "surf simulator",
+      "name": "WarMachine",
+      "price": 275.0,
+      "publisher": "Origin",
+      "releaseDate": "2015-04-05",
+      "review": 7.2
+  },
+  {
+      "description": "A game to kill others",
+      "developer": "tecent",
+      "gender": "fps",
+      "name": "HouliFuck",
+      "price": 97.0,
+      "publisher": "Steam",
+      "releaseDate": "2016-04-30",
+      "review": 8.7
+  },
+  {
+      "description": "A game to die",
+      "developer": "microsoft",
+      "gender": "adventure",
+      "name": "TruivoBouquer",
+      "price": 53.0,
+      "publisher": "Epic",
+      "releaseDate": "2023-08-18",
+      "review": 8.5
+  },
+  {
+      "description": "A game to get more equipments",
+      "developer": "blizzard",
+      "gender": "rpg",
+      "name": "Mainfiolinde",
+      "price": 55.0,
+      "publisher": "Origin",
+      "releaseDate": "2022-06-28",
+      "review": 8.0
+  },
+  {
+      "description": "A game for play with friends",
+      "developer": "sony",
+      "gender": "mmorpg",
+      "name": "Nucopina",
+      "price": 25.0,
+      "publisher": "Steam",
+      "releaseDate": "2021-12-03",
+      "review": 5.6
+  },
+  {
+      "description": "A game to make enemies",
+      "developer": "nintendo",
+      "gender": "moba",
+      "name": "Leviosaa",
+      "price": 5.0,
+      "publisher": "Epic",
+      "releaseDate": "2022-11-06",
+      "review": 9.4
+  },
+  {
+      "description": "A game to keep de boas",
+      "developer": "nintendo",
+      "gender": "farmsimulator",
+      "name": "Kindred",
+      "price": 68.0,
+      "publisher": "Origin",
+      "releaseDate": "2023-10-06",
+      "review": 6.9
+  },
+  {
+      "description": "A game to kill a animal",
+      "developer": "microsoft",
+      "gender": "petsimulator",
+      "name": "Osfrind",
+      "price": 67.0,
+      "publisher": "Steam",
+      "releaseDate": "2022-08-01",
+      "review": 5.2
+  }
+]

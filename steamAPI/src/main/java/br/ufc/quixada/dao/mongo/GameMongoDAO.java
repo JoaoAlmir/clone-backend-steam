@@ -5,43 +5,29 @@ import br.ufc.quixada.entity.Game;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GameMongoDAO extends GameDAO, MongoRepository<Game, String> {
-	
-	
-	public List<Game> getGameByName(String cpf);
 
+	public Optional<Game> findById(String id);
 
-	public List<Game> gameByPriceLessThanEqual(Double price);
+	public List<Game> findByNameIgnoreCaseContaining(String name);
 
+	public void deleteById(String id);
 
-	public List<Game> getAllGamesByPublisher(String publisher);
+	public List<Game> findByPriceLessThan(Double price);
 
+	public List<Game> findByPublisherIgnoreCaseContaining(String publisher);
 
-	public List<Game> getAllGamesByGoodReview();
+	public List<Game> findByDeveloperIgnoreCaseContaining(String developer);
 
+	public List<Game> findByReviewGreaterThan(Double review);
 
-	public List<Game> getAllWishListGamesByPriceLess(int id, Double price);
+	public List<Game> findByPriceBetween(Double start, Double end);
 
-
-	public List<Game> getAllWishListGamesByGender(int id, String gender);
-
-
-	public void removeGameComplete(int id_game);
-
-
-	public List<Game> getAllGamesByPriceWithInterval(Double start, Double end);
-
-
-	public List<Game> getAllGamesByStartingRealeaseDate(LocalDate release_date);
-
-
-	public List<Game> getAllGamesByDeveloperStartingWithIgnoreCase(String developer);
-
-  
-	public List<Game> getAllGamesByDescriptionContaining(String desc);
+	public List<Game> findByDescriptionContaining(String desc);
 }

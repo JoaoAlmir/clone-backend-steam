@@ -23,8 +23,8 @@ import jakarta.validation.constraints.Min;
 @Data
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @NonNull
     private String name;
@@ -46,9 +46,8 @@ public class Game {
     private String publisher;
 
     @NonNull
-    private LocalDate release_date;
+    private LocalDate releaseDate;
 
     @NonNull
     private String gender;
-
 }

@@ -13,53 +13,37 @@ import br.ufc.quixada.entity.Game;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface GameJPADAO extends GameDAO, JpaRepository<Game, Integer> {
+public interface GameJPADAO extends GameDAO, JpaRepository<Game, String> {
   // NamedQuery
   @Query(name = "gameByName")
-  public List<Game> getGameByName(String name);
+  public List<Game> findByNameIgnoreCaseContaining(String name);
 
   // NamedQuery
   @Query(name = "gameByPriceLessThanEqual")
-  public List<Game> gameByPriceLessThanEqual(Double price);
+  public List<Game> findByPriceLessThan(Double price);
 
   // NativeQuery
   @Query(value = "select * from game where publisher = :publisher", nativeQuery = true)
-  public List<Game> getAllGamesByPublisher(String publisher);
+  public List<Game> findByPublisherIgnoreCaseContaining(String publisher);
 
   // Native query
   @Query(value = "select * from game where review >= 7", nativeQuery = true)
-  public List<Game> getAllGamesByGoodReview();
+  public List<Game> findByReviewGreaterThan(int review);
 
-  // Native query
-  @Query(value = "SELECT * FROM game " +
-      "where price<=:price and id in " +
-      "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
-  public List<Game> getAllWishListGamesByPriceLess(int id, Double price);
-
-  // Native query
-  @Query(value = "SELECT * FROM game " +
-      "where upper(gender)=upper(:gender) and id in " +
-      "(SELECT id_game FROM wishlist where id_profile=:id)", nativeQuery = true)
-  public List<Game> getAllWishListGamesByGender(int id, String gender);
-
-  // Native query
-	@Modifying
-	@Transactional
-	@Query(value =  "DELETE FROM progress WHERE id_game = :id_game"+
-			" ;DELETE FROM game WHERE id = :id_game", nativeQuery = true)
-	public void removeGameComplete(int id_game);
+  // // Native query
+  @Modifying
+  @Transactional
+  @Query(value = "DELETE FROM progress WHERE IdGame = :IdGame" +
+      " ;DELETE FROM game WHERE id = :IdGame", nativeQuery = true)
+  public void deleteById(String IdGame);
 
   // JPQL query
   @Query("select g from Game g where g.price >= :start and g.price <= :end")
-  public List<Game> getAllGamesByPriceWithInterval(Double start, Double end);
-
-  // JPQL Query
-  @Query("select g from Game g where g.release_date >= :release_date")
-  public List<Game> getAllGamesByStartingRealeaseDate(LocalDate release_date);
+  public List<Game> findByPriceBetween(Double start, Double end);
 
   // Query by method name
-  public List<Game> getAllGamesByDeveloperStartingWithIgnoreCase(String developer);
+  public List<Game> findByDeveloperIgnoreCaseContaining(String developer);
 
   // Query by method name
-  public List<Game> getAllGamesByDescriptionContaining(String desc);
+  public List<Game> findByDescriptionContaining(String desc);
 }

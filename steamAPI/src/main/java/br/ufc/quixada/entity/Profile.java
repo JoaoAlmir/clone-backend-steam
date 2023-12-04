@@ -22,24 +22,24 @@ import java.util.List;
 @Data
 public class Profile {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
   @NonNull
   private String name;
   @NonNull
   private String email;
   @NonNull
-  private String nick_name;
+  private String nickName;
   @NonNull
   private String local;
 
   @NonNull
   @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_game"))
+  @JoinTable(name = "lib", joinColumns = @JoinColumn(name = "idProfile"), inverseJoinColumns = @JoinColumn(name = "idGame"))
   private List<Game> lib;
 
   @ManyToMany(cascade = CascadeType.REFRESH)
-  @JoinTable(name = "friends", joinColumns = @JoinColumn(name = "id_profile"), inverseJoinColumns = @JoinColumn(name = "id_friend"))
+  @JoinTable(name = "friends", joinColumns = @JoinColumn(name = "idProfile"), inverseJoinColumns = @JoinColumn(name = "idFriend"))
   private List<Profile> friends;
 
   @Min(value = 0, message = "O nível deve ser no mínimo 0")
@@ -51,5 +51,5 @@ public class Profile {
 
   public Integer getCountLib() {
     return this.lib.size();
-  };
+  }
 }

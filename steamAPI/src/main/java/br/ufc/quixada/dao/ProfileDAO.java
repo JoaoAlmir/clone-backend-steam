@@ -1,16 +1,24 @@
 package br.ufc.quixada.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.ufc.quixada.entity.Profile;
 
 public interface ProfileDAO {
-  public Profile getProfileById(int id);
-  public Profile getProfileByName(String name);
-  public Profile getProfileByEmail(String email);
-  public void removeProfileComplete(int id_profile);
-  public List<Profile> getAllFriendsByName(int id, String name);
-  public List<Profile> getAllFriendsNickName(int id, String nickname);
-  public List<Profile> getAllFriendsByLocal(int id, String local);
-  public List<Profile> getAllFriendsByLevelMore(int id, int level);
+  public Optional<Profile> findById(String id);
+
+  public Profile findByNameContaining(String name);
+
+  public Profile findByEmail(String email);
+
+  public void deleteById(String idProfile);
+
+  // public List<Profile> findByIdByFriendsByNameIgnoreCaseContaining(String id, String name);
+
+  // public List<Profile> findFriendsByNickNameIgnoreCaseContaining(String id, String nickname);
+
+  // public List<Profile> findFriendsByLocal(String id, String local);
+
+  // public List<Profile> findFriendsByLevelGreaterThan(String id, int level);
 }

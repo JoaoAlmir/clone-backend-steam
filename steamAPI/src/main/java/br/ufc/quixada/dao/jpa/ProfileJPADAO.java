@@ -12,50 +12,49 @@ import br.ufc.quixada.entity.Profile;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface ProfileJPADAO extends ProfileDAO, JpaRepository<Profile, Integer> {
+public interface ProfileJPADAO extends ProfileDAO, JpaRepository<Profile, String> {
 	// NamedQuery
 	@Query(name = "profileById")
-	public Profile getProfileById(int id);
+	public Profile getProfileById(String id);
 
 	// Named query
 	@Query(name = "profileByName")
-	public Profile getProfileByName(String name);
+	public Profile findByNameContaining(String name);
 
 	// Named query
 	@Query(name = "profileByEmail")
-	public Profile getProfileByEmail(String email);
+	public Profile findByEmail(String email);
 
 	// Native query
 	@Modifying
 	@Transactional
-	@Query(value =  "DELETE FROM progress WHERE id_profile = :id_profile"+
-			" ;DELETE FROM wishlist WHERE id_profile = :id_profile" +
-			" ;DELETE FROM lib WHERE id_profile = :id_profile" +
-			" ;DELETE FROM friends WHERE id_profile = :id_profile OR id_friend = :id_profile" +
-			" ;DELETE FROM profile WHERE id = :id_profile", nativeQuery = true)
-	public void removeProfileComplete(int id_profile);
+	@Query(value = "DELETE FROM progress WHERE IdProfile = :IdProfile" +
+			" ;DELETE FROM lib WHERE IdProfile = :IdProfile" +
+			" ;DELETE FROM friends WHERE IdProfile = :IdProfile OR idFriend = :IdProfile" +
+			" ;DELETE FROM profile WHERE id = :IdProfile", nativeQuery = true)
+	public void deleteById(String IdProfile);
 
-	// Native query
-	@Query(value = "SELECT * FROM profile " +
-			"where upper(name) like upper(:name) and id in " +
-			"(SELECT id_friend FROM friends where id_profile = :id)", nativeQuery = true)
-	public List<Profile> getAllFriendsByName(int id, String name);
+	// // Native query
+	// @Query(value = "SELECT * FROM profile " +
+	// 		"where upper(name) like upper(:name) and id in " +
+	// 		"(SELECT idFriend FROM friends where IdProfile = :id)", nativeQuery = true)
+	// public List<Profile> findFriendsByNameIgnoreCaseContaining(String id, String name);
 
-	// Native query
-	@Query(value = "SELECT * FROM profile " +
-			"where nick_name like :nickname and id in " +
-			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
-	public List<Profile> getAllFriendsNickName(int id, String nickname);
+	// // Native query
+	// @Query(value = "SELECT * FROM profile " +
+	// 		"where nickName like :nickname and id in " +
+	// 		"(SELECT idFriend FROM friends where IdProfile=:id)", nativeQuery = true)
+	// public List<Profile> findFriendsByNickNameIgnoreCaseContaining(String id, String nickname);
 
-	// Native query
-	@Query(value = "SELECT * FROM profile " +
-			"where upper(local) like upper(:local) and id in " +
-			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
-	public List<Profile> getAllFriendsByLocal(int id, String local);
+	// // Native query
+	// @Query(value = "SELECT * FROM profile " +
+	// 		"where upper(local) like upper(:local) and id in " +
+	// 		"(SELECT idFriend FROM friends where IdProfile=:id)", nativeQuery = true)
+	// public List<Profile> findFriendsByLocal(String id, String local);
 
-	// Native query
-	@Query(value = "SELECT * FROM profile " +
-			"where level >= :level and id in " +
-			"(SELECT id_friend FROM friends where id_profile=:id)", nativeQuery = true)
-	public List<Profile> getAllFriendsByLevelMore(int id, int level);
+	// // Native query
+	// @Query(value = "SELECT * FROM profile " +
+	// 		"where level >= :level and id in " +
+	// 		"(SELECT idFriend FROM friends where IdProfile=:id)", nativeQuery = true)
+	// public List<Profile> findFriendsByLevelGreaterThan(String id, int level);
 }
